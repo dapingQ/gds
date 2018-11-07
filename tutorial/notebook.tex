@@ -1,0 +1,1572 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{tutorial}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{from} \PY{n+nn}{\PYZus{}\PYZus{}future\PYZus{}\PYZus{}} \PY{k}{import} \PY{n}{division}\PY{p}{,} \PY{n}{print\PYZus{}function}\PY{p}{,} \PY{n}{absolute\PYZus{}import}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        
+        
+        \PY{k+kn}{from} \PY{n+nn}{phidl} \PY{k}{import} \PY{n}{Device}\PY{p}{,} \PY{n}{Layer}\PY{p}{,} \PY{n}{LayerSet}\PY{p}{,} \PY{n}{make\PYZus{}device}
+        \PY{k+kn}{from} \PY{n+nn}{phidl} \PY{k}{import} \PY{n}{quickplot} \PY{k}{as} \PY{n}{qp} \PY{c+c1}{\PYZsh{} Rename \PYZdq{}quickplot()\PYZdq{} to the easier \PYZdq{}qp()\PYZdq{}}
+        \PY{k+kn}{import} \PY{n+nn}{phidl}\PY{n+nn}{.}\PY{n+nn}{geometry} \PY{k}{as} \PY{n+nn}{pg}
+        \PY{k+kn}{import} \PY{n+nn}{phidl}\PY{n+nn}{.}\PY{n+nn}{routing} \PY{k}{as} \PY{n+nn}{pr}
+        \PY{k+kn}{import} \PY{n+nn}{phidl}\PY{n+nn}{.}\PY{n+nn}{utilities} \PY{k}{as} \PY{n+nn}{pu}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{}==============================================================================}
+        \PY{c+c1}{\PYZsh{} Helpful (but not necessary) notes about plotting. (Can be skipped)}
+        \PY{c+c1}{\PYZsh{}==============================================================================}
+        \PY{c+c1}{\PYZsh{} Note: If you have Qt + PyQt installed, you may be able to use the much}
+        \PY{c+c1}{\PYZsh{} faster quickplot2() function, which acts like KLayout (try zooming with}
+        \PY{c+c1}{\PYZsh{} the mousewheel, and right\PYZhy{}click\PYZhy{}dragging to zoom). The F1/F2/F3 keys also}
+        \PY{c+c1}{\PYZsh{} show/hide Ports, Subports, and Aliases respectively.  The Esc key resets}
+        \PY{c+c1}{\PYZsh{} the view}
+        \PY{c+c1}{\PYZsh{}}
+        \PY{c+c1}{\PYZsh{} We recommend trying the following just to see if it works:}
+        \PY{c+c1}{\PYZsh{} \PYZgt{}\PYZgt{}\PYZgt{} from phidl import quickplot2 as qp}
+        \PY{c+c1}{\PYZsh{} \PYZgt{}\PYZgt{}\PYZgt{} import phidl.geometry as pg}
+        \PY{c+c1}{\PYZsh{} \PYZgt{}\PYZgt{}\PYZgt{} qp(pg.rectangle())}
+        \PY{c+c1}{\PYZsh{}}
+        \PY{c+c1}{\PYZsh{} If that doesn\PYZsq{}t work and you\PYZsq{}re using IPython, try using the command}
+        \PY{c+c1}{\PYZsh{} \PYZgt{}\PYZgt{}\PYZgt{} \PYZpc{}gui qt}
+        \PY{c+c1}{\PYZsh{}==============================================================================}
+        
+        \PY{c+c1}{\PYZsh{} Uncomment this if you\PYZsq{}re using the original quickplot (not quickplot2)}
+        \PY{c+c1}{\PYZsh{} and you\PYZsq{}d like to see each result in a new window}
+        \PY{c+c1}{\PYZsh{} import functools}
+        \PY{c+c1}{\PYZsh{} qp = functools.partial(qp, new\PYZus{}window = True)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{}==============================================================================}
+        \PY{c+c1}{\PYZsh{}==============================================================================}
+        \PY{c+c1}{\PYZsh{}==============================================================================}
+        \PY{c+c1}{\PYZsh{} PHIDL TUTORIAL START}
+        \PY{c+c1}{\PYZsh{}==============================================================================}
+        \PY{c+c1}{\PYZsh{}==============================================================================}
+        \PY{c+c1}{\PYZsh{}==============================================================================}
+        
+        
+        \PY{c+c1}{\PYZsh{}==============================================================================}
+        \PY{c+c1}{\PYZsh{} We\PYZsq{}ll start by assuming we have a function waveguide() which already exists}
+        \PY{c+c1}{\PYZsh{} and makes us a simple waveguide rectangle.  Many functions like this}
+        \PY{c+c1}{\PYZsh{} exist in the phidl.geometry library and are ready\PYZhy{}for\PYZhy{}use.  We write this}
+        \PY{c+c1}{\PYZsh{} one out fully just so it\PYZsq{}s explicitly clear what\PYZsq{}s happening}
+        \PY{c+c1}{\PYZsh{}==============================================================================}
+        
+        \PY{k}{def} \PY{n+nf}{waveguide}\PY{p}{(}\PY{n}{width} \PY{o}{=} \PY{l+m+mi}{10}\PY{p}{,} \PY{n}{height} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+            \PY{n}{WG} \PY{o}{=} \PY{n}{Device}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{waveguide}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{WG}\PY{o}{.}\PY{n}{add\PYZus{}polygon}\PY{p}{(} \PY{p}{[}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{n}{width}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{n}{width}\PY{p}{,} \PY{n}{height}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{height}\PY{p}{)}\PY{p}{]} \PY{p}{)}
+            \PY{n}{WG}\PY{o}{.}\PY{n}{add\PYZus{}port}\PY{p}{(}\PY{n}{name} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wgport1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{midpoint} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{height}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{n}{width} \PY{o}{=} \PY{n}{height}\PY{p}{,} \PY{n}{orientation} \PY{o}{=} \PY{l+m+mi}{180}\PY{p}{)}
+            \PY{n}{WG}\PY{o}{.}\PY{n}{add\PYZus{}port}\PY{p}{(}\PY{n}{name} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wgport2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{midpoint} \PY{o}{=} \PY{p}{[}\PY{n}{width}\PY{p}{,}\PY{n}{height}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{n}{width} \PY{o}{=} \PY{n}{height}\PY{p}{,} \PY{n}{orientation} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{)}
+            \PY{k}{return} \PY{n}{WG}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{}==============================================================================}
+        \PY{c+c1}{\PYZsh{} Create a blank device}
+        \PY{c+c1}{\PYZsh{}==============================================================================}
+        \PY{c+c1}{\PYZsh{} Let\PYZsq{}s create a new device ``D`` which will act as a blank canvas (D can be }
+        \PY{c+c1}{\PYZsh{} thought of as a blank GDS cell with some special features). Note that when we}
+        \PY{c+c1}{\PYZsh{} make a Device, we usually assign it a variable name with a capital letter}
+        \PY{n}{D} \PY{o}{=} \PY{n}{Device}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MultiWaveguide}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Now say we want to add a few waveguides to to our \PYZdq{}Device\PYZdq{} D.}
+        \PY{c+c1}{\PYZsh{} First we create the waveguides.  As you can see from the waveguide() function}
+        \PY{c+c1}{\PYZsh{} definition, the waveguide() function creates another Device (\PYZdq{}WG\PYZdq{}).}
+        \PY{c+c1}{\PYZsh{} This can be thought of as the waveguide() function creating another GDS cell,}
+        \PY{c+c1}{\PYZsh{} only this one has some geometry inside it.}
+        \PY{c+c1}{\PYZsh{}}
+        \PY{c+c1}{\PYZsh{} Let\PYZsq{}s create two of these Devices by calling the waveguide() function}
+        \PY{n}{WG1} \PY{o}{=} \PY{n}{waveguide}\PY{p}{(}\PY{n}{width}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{height} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n}{WG2} \PY{o}{=} \PY{n}{waveguide}\PY{p}{(}\PY{n}{width}\PY{o}{=}\PY{l+m+mi}{12}\PY{p}{,} \PY{n}{height} \PY{o}{=} \PY{l+m+mi}{2}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Now we\PYZsq{}ve made two waveguides Device WG1 and WG2, and we have a blank}
+        \PY{c+c1}{\PYZsh{} device D. We can add references from the devices WG1 and WG2 to our blank}
+        \PY{c+c1}{\PYZsh{} device byz using the add\PYZus{}ref() function.}
+        \PY{c+c1}{\PYZsh{} After adding WG1, we see that the add\PYZus{}ref() function returns a handle to our}
+        \PY{c+c1}{\PYZsh{} reference, which we will label with lowercase letters wg1 and wg2.  This}
+        \PY{c+c1}{\PYZsh{} handle will be useful later when we want to move wg1 and wg2 around in D.}
+        \PY{n}{wg1} \PY{o}{=} \PY{n}{D}\PY{o}{.}\PY{n}{add\PYZus{}ref}\PY{p}{(}\PY{n}{WG1}\PY{p}{)}  \PY{c+c1}{\PYZsh{} Using the function add\PYZus{}ref()}
+        \PY{n}{wg2} \PY{o}{=} \PY{n}{D} \PY{o}{\PYZlt{}\PYZlt{}} \PY{n}{WG2}        \PY{c+c1}{\PYZsh{} Using the \PYZlt{}\PYZlt{} operator which is identical to add\PYZus{}ref()}
+        
+        \PY{c+c1}{\PYZsh{} Alternatively, we can do this all on one line}
+        \PY{n}{wg3} \PY{o}{=} \PY{n}{D}\PY{o}{.}\PY{n}{add\PYZus{}ref}\PY{p}{(}\PY{n}{waveguide}\PY{p}{(}\PY{n}{width}\PY{o}{=}\PY{l+m+mi}{14}\PY{p}{,} \PY{n}{height} \PY{o}{=} \PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}
+        
+        \PY{n}{qp}\PY{p}{(}\PY{n}{D}\PY{p}{)} \PY{c+c1}{\PYZsh{} quickplot it!}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_3_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{}==============================================================================}
+        \PY{c+c1}{\PYZsh{} Creating polygons}
+        \PY{c+c1}{\PYZsh{}==============================================================================}
+        \PY{c+c1}{\PYZsh{} Create and add a polygon from separate lists of x points and y points}
+        \PY{c+c1}{\PYZsh{} e.g. [(x1, x2, x3, ...), (y1, y2, y3, ...)]}
+        \PY{n}{poly1} \PY{o}{=} \PY{n}{D}\PY{o}{.}\PY{n}{add\PYZus{}polygon}\PY{p}{(} \PY{p}{[}\PY{p}{(}\PY{l+m+mi}{8}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{,}\PY{l+m+mi}{9}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{,}\PY{l+m+mi}{9}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{]} \PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Alternatively, create and add a polygon from a list of points}
+        \PY{c+c1}{\PYZsh{} e.g. [(x1,y1), (x2,y2), (x3,y3), ...] using the same function}
+        \PY{n}{poly2} \PY{o}{=} \PY{n}{D}\PY{o}{.}\PY{n}{add\PYZus{}polygon}\PY{p}{(} \PY{p}{[}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}\PY{p}{]} \PY{p}{)}
+        
+        \PY{n}{qp}\PY{p}{(}\PY{n}{D}\PY{p}{)} \PY{c+c1}{\PYZsh{} quickplot it!}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{}==============================================================================}
+        \PY{c+c1}{\PYZsh{} Manipulating geometry 1 \PYZhy{} Basic movement and rotation}
+        \PY{c+c1}{\PYZsh{}==============================================================================}
+        \PY{c+c1}{\PYZsh{} There are several actions we can take to move and rotate the geometry.  These}
+        \PY{c+c1}{\PYZsh{} actions include movement, rotation, and reflection.}
+        
+        \PY{n}{wg1}\PY{o}{.}\PY{n}{move}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{)} \PY{c+c1}{\PYZsh{} Shift the second waveguide we created over by dx = 10, dy = 4}
+        \PY{n}{wg2}\PY{o}{.}\PY{n}{move}\PY{p}{(}\PY{n}{origin} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{destination} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)} \PY{c+c1}{\PYZsh{} Shift the second waveguide over by dx = 1, dy = 1}
+        \PY{n}{wg3}\PY{o}{.}\PY{n}{move}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{} Shift the third waveguide over by dx = 0, dy = 4 (motion only along y\PYZhy{}axis)}
+        \PY{n}{poly1}\PY{o}{.}\PY{n}{movey}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)} \PY{c+c1}{\PYZsh{} Same as specifying axis=\PYZsq{}y\PYZsq{} in the move() command}
+        \PY{n}{poly2}\PY{o}{.}\PY{n}{movex}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{)} \PY{c+c1}{\PYZsh{} Same as specifying axis=\PYZsq{}x\PYZsq{}\PYZsq{} in the move() command}
+        \PY{n}{wg3}\PY{o}{.}\PY{n}{movex}\PY{p}{(}\PY{l+m+mi}{30}\PY{p}{,}\PY{l+m+mi}{40}\PY{p}{)} \PY{c+c1}{\PYZsh{} Moves \PYZdq{}from\PYZdq{} x=30 \PYZdq{}to\PYZdq{} x=40 (e.g. shifts wg3 by +10 in the x\PYZhy{}direction)}
+        
+        \PY{n}{wg1}\PY{o}{.}\PY{n}{rotate}\PY{p}{(}\PY{l+m+mi}{45}\PY{p}{)} \PY{c+c1}{\PYZsh{} Rotate the first waveguide by 45 degrees around (0,0)}
+        \PY{n}{wg2}\PY{o}{.}\PY{n}{rotate}\PY{p}{(}\PY{l+m+mi}{30}\PY{p}{,} \PY{n}{center} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)} \PY{c+c1}{\PYZsh{} Rotate the second waveguide by 30 degrees around (1,1)}
+        
+        \PY{n}{wg1}\PY{o}{.}\PY{n}{reflect}\PY{p}{(}\PY{n}{p1} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{p2} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)} \PY{c+c1}{\PYZsh{} Reflects wg3 across the line formed by p1 and p2}
+        
+        \PY{n}{qp}\PY{p}{(}\PY{n}{D}\PY{p}{)} \PY{c+c1}{\PYZsh{} quickplot it!}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_5_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{}==============================================================================}
+        \PY{c+c1}{\PYZsh{} Manipulating geometry 2 \PYZhy{} Properties}
+        \PY{c+c1}{\PYZsh{}==============================================================================}
+        \PY{c+c1}{\PYZsh{} Each Device and DeviceReference object has several properties which can be used to learn}
+        \PY{c+c1}{\PYZsh{} information about the object (for instance where it\PYZsq{}s center coordinate is).  Several}
+        \PY{c+c1}{\PYZsh{} of these properties can actually be used to move the geometry by assigning them}
+        \PY{c+c1}{\PYZsh{} new values}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{wg1}\PY{o}{.}\PY{n}{bbox}\PY{p}{)} \PY{c+c1}{\PYZsh{} Will print the bounding box of wg1 in terms of [(xmin, ymin), (xmax, ymax)]}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{wg1}\PY{o}{.}\PY{n}{xsize}\PY{p}{)} \PY{c+c1}{\PYZsh{} Will print the width of wg1 in the x dimension}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{wg1}\PY{o}{.}\PY{n}{ysize}\PY{p}{)} \PY{c+c1}{\PYZsh{} Will print the height of wg1 in the y dimension}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{wg1}\PY{o}{.}\PY{n}{center}\PY{p}{)} \PY{c+c1}{\PYZsh{} Gives you the center coordinate of its bounding box}
+        \PY{n}{wg1}\PY{o}{.}\PY{n}{center} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{]} \PY{c+c1}{\PYZsh{} Shift wg1 such that the center coordinate of its bounding box is at (4,4)}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{wg2}\PY{o}{.}\PY{n}{xmax}\PY{p}{)} \PY{c+c1}{\PYZsh{} Gives you the rightmost (+x) edge of the wg2 bounding box}
+        \PY{n}{wg2}\PY{o}{.}\PY{n}{xmax} \PY{o}{=} \PY{l+m+mi}{25} \PY{c+c1}{\PYZsh{} Moves wg2 such that it\PYZsq{}s rightmost edge is at x = 25}
+        
+        \PY{n}{wg2}\PY{o}{.}\PY{n}{y} \PY{o}{=} \PY{l+m+mi}{5} \PY{c+c1}{\PYZsh{} Sets the y\PYZhy{}coordingate of the center of the shape\PYZsq{}s bounding box}
+        
+        \PY{n}{wg3}\PY{o}{.}\PY{n}{ymin} \PY{c+c1}{\PYZsh{} Gives you the bottommost (\PYZhy{}y) edge of the wg3 bounding box}
+        \PY{n}{wg3}\PY{o}{.}\PY{n}{ymin} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{14} \PY{c+c1}{\PYZsh{} Moves wg3 such that it\PYZsq{}s bottommost edge is at y = \PYZhy{}14}
+        
+        
+        \PY{n}{qp}\PY{p}{(}\PY{n}{D}\PY{p}{)} \PY{c+c1}{\PYZsh{} quickplot it!}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[[-9.3137085   9.89949494]
+ [-1.53553391 17.67766953]]
+7.778174593052022
+7.778174593052023
+[-5.4246212  13.78858223]
+11.392304845413264
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{c+c1}{\PYZsh{}==============================================================================}
+        \PY{c+c1}{\PYZsh{} Manipulating geometry 3 \PYZhy{} Smarter movement with ports}
+        \PY{c+c1}{\PYZsh{}==============================================================================}
+        \PY{c+c1}{\PYZsh{} All the waveguides we made have two ports: \PYZsq{}wgport1\PYZsq{} and \PYZsq{}wgport2\PYZsq{}  We can }
+        \PY{c+c1}{\PYZsh{} use these names in place of (x,y) pairs.  For instance, if we want to move}
+        \PY{c+c1}{\PYZsh{} wg1 such that its port \PYZsq{}wgport1\PYZsq{} rests on the origin, we do:}
+        \PY{n}{wg1}\PY{o}{.}\PY{n}{move}\PY{p}{(}\PY{n}{origin} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wgport1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{destination} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} Alternatively, we can use the Port object itself in the same manner.  We can}
+        \PY{c+c1}{\PYZsh{} access the Port objects for any Device (or DeviceReference) by calling device.ports,}
+        \PY{c+c1}{\PYZsh{} \PYZhy{}\PYZhy{}which returns a Python dictionary\PYZhy{}\PYZhy{}and accessing its value with the key}
+        \PY{n}{wg3}\PY{o}{.}\PY{n}{move}\PY{p}{(}\PY{n}{origin} \PY{o}{=} \PY{n}{wg3}\PY{o}{.}\PY{n}{ports}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wgport1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{destination} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} We can even move one port to another }
+        \PY{n}{wg2}\PY{o}{.}\PY{n}{move}\PY{p}{(}\PY{n}{origin} \PY{o}{=} \PY{n}{wg2}\PY{o}{.}\PY{n}{ports}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wgport1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{destination} \PY{o}{=} \PY{n}{wg3}\PY{o}{.}\PY{n}{ports}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wgport2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} Several functions beyond just move() can take Ports as inputs}
+        \PY{n}{wg1}\PY{o}{.}\PY{n}{rotate}\PY{p}{(}\PY{n}{angle} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{60}\PY{p}{,} \PY{n}{center} \PY{o}{=} \PY{n}{wg1}\PY{o}{.}\PY{n}{ports}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wgport2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        \PY{n}{wg3}\PY{o}{.}\PY{n}{reflect}\PY{p}{(}\PY{n}{p1} \PY{o}{=} \PY{n}{wg3}\PY{o}{.}\PY{n}{ports}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wgport1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{midpoint}\PY{p}{,} \PY{n}{p2} \PY{o}{=} \PY{n}{wg3}\PY{o}{.}\PY{n}{ports}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wgport1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{midpoint} \PY{o}{+} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+        
+        \PY{n}{qp}\PY{p}{(}\PY{n}{D}\PY{p}{)} \PY{c+c1}{\PYZsh{} quickplot it!}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_7_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{c+c1}{\PYZsh{}==============================================================================}
+        \PY{c+c1}{\PYZsh{} Manipulating geometry 4 \PYZhy{} Chaining commands}
+        \PY{c+c1}{\PYZsh{}==============================================================================}
+        \PY{c+c1}{\PYZsh{} Many of the functions in Device return the object they manipulate.  We can use}
+        \PY{c+c1}{\PYZsh{} this to chain commands in a single line. For instance these two expressions:}
+        \PY{n}{wg1}\PY{o}{.}\PY{n}{rotate}\PY{p}{(}\PY{n}{angle} \PY{o}{=} \PY{l+m+mi}{15}\PY{p}{,} \PY{n}{center} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+        \PY{n}{wg1}\PY{o}{.}\PY{n}{move}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{20}\PY{p}{]}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} ...are equivalent to this single\PYZhy{}line expression}
+        \PY{n}{wg1}\PY{o}{.}\PY{n}{rotate}\PY{p}{(}\PY{n}{angle} \PY{o}{=} \PY{l+m+mi}{15}\PY{p}{,} \PY{n}{center} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{move}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{20}\PY{p}{]}\PY{p}{)}
+        
+        
+        
+        \PY{c+c1}{\PYZsh{}==============================================================================}
+        \PY{c+c1}{\PYZsh{} Connecting devices with connect()}
+        \PY{c+c1}{\PYZsh{}==============================================================================}
+        \PY{c+c1}{\PYZsh{} The connect command allows us to connect DeviceReference ports together like }
+        \PY{c+c1}{\PYZsh{} Lego blocks.  There is an optional parameter called ``overlap`` which is}
+        \PY{c+c1}{\PYZsh{} useful if you have shapes you want to intersect with some overlap (or with a}
+        \PY{c+c1}{\PYZsh{} negative number, separate the ports).}
+        \PY{n}{wg1}\PY{o}{.}\PY{n}{connect}\PY{p}{(}\PY{n}{port} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wgport1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{destination} \PY{o}{=} \PY{n}{wg2}\PY{o}{.}\PY{n}{ports}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wgport2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        \PY{n}{wg3}\PY{o}{.}\PY{n}{connect}\PY{p}{(}\PY{n}{port} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wgport2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{destination} \PY{o}{=} \PY{n}{wg2}\PY{o}{.}\PY{n}{ports}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wgport1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{overlap} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+        
+        \PY{n}{qp}\PY{p}{(}\PY{n}{D}\PY{p}{)} \PY{c+c1}{\PYZsh{} quickplot it!}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_8_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{}==============================================================================}
+         \PY{c+c1}{\PYZsh{} Adding ports}
+         \PY{c+c1}{\PYZsh{}==============================================================================}
+         \PY{c+c1}{\PYZsh{} Although our waveguides wg1/wg2/wg3 have ports, they\PYZsq{}re only references}
+         \PY{c+c1}{\PYZsh{} of the device ``D`` we\PYZsq{}re working in, and D itself does not \PYZhy{}\PYZhy{} it only draws}
+         \PY{c+c1}{\PYZsh{} the subports (ports of wg1, wg2, wg3) as a convenience.  We need to add ports}
+         \PY{c+c1}{\PYZsh{} that we specifically want in our new device ``D``. add\PYZus{}port() can take a }
+         \PY{c+c1}{\PYZsh{} port argument which allows you to pass it an underlying reference port to }
+         \PY{c+c1}{\PYZsh{} copy. You can also rename the port if you desire:}
+         \PY{n}{p1} \PY{o}{=} \PY{n}{D}\PY{o}{.}\PY{n}{add\PYZus{}port}\PY{p}{(}\PY{n}{port} \PY{o}{=} \PY{n}{wg1}\PY{o}{.}\PY{n}{ports}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wgport2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{name} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{p2} \PY{o}{=} \PY{n}{D}\PY{o}{.}\PY{n}{add\PYZus{}port}\PY{p}{(}\PY{n}{port} \PY{o}{=} \PY{n}{wg3}\PY{o}{.}\PY{n}{ports}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wgport1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{name} \PY{o}{=} \PY{l+m+mi}{2}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Optionally, let\PYZsq{}s assign some information to these ports.  Every Port has}
+         \PY{c+c1}{\PYZsh{} a Port.info dictionary which can be used to store information about that port}
+         \PY{n}{p1}\PY{o}{.}\PY{n}{info}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{is\PYZus{}useful}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{k+kc}{True}
+         \PY{n}{p2}\PY{o}{.}\PY{n}{info}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{is\PYZus{}useful}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{k+kc}{False}
+         
+         
+         \PY{n}{qp}\PY{p}{(}\PY{n}{D}\PY{p}{)} \PY{c+c1}{\PYZsh{} quickplot it!}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_9_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{c+c1}{\PYZsh{}==============================================================================}
+         \PY{c+c1}{\PYZsh{} Taking things a level higher}
+         \PY{c+c1}{\PYZsh{}==============================================================================}
+         \PY{c+c1}{\PYZsh{} Now that we have our device ``D`` which is a multi\PYZhy{}waveguide device, we}
+         \PY{c+c1}{\PYZsh{} can add references to that device in a new blank canvas we\PYZsq{}ll call ``D2``.}
+         \PY{c+c1}{\PYZsh{} We\PYZsq{}ll add two copies of ``D`` to D2, and shift one so we can see them both}
+         \PY{n}{D2} \PY{o}{=} \PY{n}{Device}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MultiMultiWaveguide}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{mwg1} \PY{o}{=} \PY{n}{D2}\PY{o}{.}\PY{n}{add\PYZus{}ref}\PY{p}{(}\PY{n}{D}\PY{p}{)}
+         \PY{n}{mwg2} \PY{o}{=} \PY{n}{D2}\PY{o}{.}\PY{n}{add\PYZus{}ref}\PY{p}{(}\PY{n}{D}\PY{p}{)}
+         \PY{n}{mwg2}\PY{o}{.}\PY{n}{move}\PY{p}{(}\PY{n}{destination} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{qp}\PY{p}{(}\PY{n}{D2}\PY{p}{)} \PY{c+c1}{\PYZsh{} quickplot it!}
+         
+         \PY{c+c1}{\PYZsh{} Like before, let\PYZsq{}s connect mwg1 and mwg2 together then offset them slightly}
+         \PY{n}{mwg1}\PY{o}{.}\PY{n}{connect}\PY{p}{(}\PY{n}{port} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{destination} \PY{o}{=} \PY{n}{mwg2}\PY{o}{.}\PY{n}{ports}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+         \PY{n}{mwg2}\PY{o}{.}\PY{n}{move}\PY{p}{(}\PY{n}{destination} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{30}\PY{p}{,}\PY{l+m+mi}{30}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{qp}\PY{p}{(}\PY{n}{D2}\PY{p}{)} \PY{c+c1}{\PYZsh{} quickplot it!}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_10_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_10_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{c+c1}{\PYZsh{} Since the references mwg1 and mwg2 only point to the device ``D``, any}
+         \PY{c+c1}{\PYZsh{} changes that we make to the original ``D`` will be reflected in ``D2``}
+         
+         \PY{n}{poly2}\PY{o}{.}\PY{n}{x} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{40}
+         
+         \PY{n}{qp}\PY{p}{(}\PY{n}{D2}\PY{p}{)} \PY{c+c1}{\PYZsh{} quickplot it!}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_11_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{c+c1}{\PYZsh{}==============================================================================}
+         \PY{c+c1}{\PYZsh{} Routing}
+         \PY{c+c1}{\PYZsh{}==============================================================================}
+         \PY{c+c1}{\PYZsh{} Routing allows us to connect two ports which face each other with a smooth}
+         \PY{c+c1}{\PYZsh{} polygon.  Since we connected our two }
+         \PY{n}{D2}\PY{o}{.}\PY{n}{add\PYZus{}ref}\PY{p}{(} \PY{n}{pr}\PY{o}{.}\PY{n}{route\PYZus{}basic}\PY{p}{(}\PY{n}{port1} \PY{o}{=} \PY{n}{mwg1}\PY{o}{.}\PY{n}{ports}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{port2} \PY{o}{=} \PY{n}{mwg2}\PY{o}{.}\PY{n}{ports}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}
+                     \PY{n}{path\PYZus{}type} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sine}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{width\PYZus{}type} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{straight}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{p}{)}
+         \PY{n}{qp}\PY{p}{(}\PY{n}{D2}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_12_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{c+c1}{\PYZsh{}==============================================================================}
+         \PY{c+c1}{\PYZsh{} Adding text}
+         \PY{c+c1}{\PYZsh{}==============================================================================}
+         \PY{c+c1}{\PYZsh{} The function text() creates a Device, just like waveguide.  Use it and }
+         \PY{c+c1}{\PYZsh{} manipulate it like any other Device}
+         \PY{n}{t} \PY{o}{=} \PY{n}{D2}\PY{o}{.}\PY{n}{add\PYZus{}ref}\PY{p}{(} \PY{n}{pg}\PY{o}{.}\PY{n}{text}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Hello}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{world!}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{l+m+mi}{10}\PY{p}{,} \PY{n}{justify} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{center}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+         \PY{n}{t}\PY{o}{.}\PY{n}{move}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{40}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{rotate}\PY{p}{(}\PY{l+m+mi}{45}\PY{p}{)}
+         \PY{n}{qp}\PY{p}{(}\PY{n}{D2}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_13_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{c+c1}{\PYZsh{}==============================================================================}
+         \PY{c+c1}{\PYZsh{} Labeling}
+         \PY{c+c1}{\PYZsh{}==============================================================================}
+         \PY{c+c1}{\PYZsh{} We can also label (annotate) our devices, in order to record information }
+         \PY{c+c1}{\PYZsh{} directly into the final GDS file without putting any extra geometry onto any }
+         \PY{c+c1}{\PYZsh{} layer}
+         \PY{c+c1}{\PYZsh{} This label will display in a GDS viewer, but will not be rendered}
+         \PY{c+c1}{\PYZsh{} or printed like the polygons created by the text()}
+         
+         
+         \PY{n}{D2}\PY{o}{.}\PY{n}{label}\PY{p}{(}\PY{n}{text} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{First label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{position} \PY{o}{=} \PY{n}{mwg1}\PY{o}{.}\PY{n}{center}\PY{p}{)}
+         \PY{n}{D2}\PY{o}{.}\PY{n}{label}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Second label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{mwg2}\PY{o}{.}\PY{n}{center}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} It\PYZsq{}s very useful for recording information about the devices or layout}
+         \PY{n}{D2}\PY{o}{.}\PY{n}{label}\PY{p}{(}\PY{n}{text} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The x size of this}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{layout is }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{D2}\PY{o}{.}\PY{n}{xsize}\PY{p}{,}
+                     \PY{n}{position} \PY{o}{=} \PY{p}{(}\PY{n}{D2}\PY{o}{.}\PY{n}{xmax}\PY{p}{,} \PY{n}{D2}\PY{o}{.}\PY{n}{ymax}\PY{p}{)}\PY{p}{,} \PY{n}{layer} \PY{o}{=} \PY{l+m+mi}{255}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Again, note we have to write the GDS for it to be visible (view in KLayout)}
+         \PY{n}{D2}\PY{o}{.}\PY{n}{write\PYZus{}gds}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MultiMultiWaveguideWithLabels.gds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}15}]:} 'MultiMultiWaveguideWithLabels.gds'
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{c+c1}{\PYZsh{}==============================================================================}
+         \PY{c+c1}{\PYZsh{} Saving the file as a .gds}
+         \PY{c+c1}{\PYZsh{}==============================================================================}
+         \PY{n}{D2}\PY{o}{.}\PY{n}{write\PYZus{}gds}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MultiMultiWaveguideTutorial.gds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} If we want to use different units than micron units, we can do that too.}
+         \PY{c+c1}{\PYZsh{} say instead of microns (1e\PYZhy{}6) with nanometer precision (1e\PYZhy{}6*1e\PYZhy{}3),}
+         \PY{c+c1}{\PYZsh{} we want to use millimeters (1e\PYZhy{}3) subdivided onto a 10\PYZhy{}micron grid,}
+         \PY{c+c1}{\PYZsh{} our precision would then be (1e\PYZhy{}2) so the grid would be (1e\PYZhy{}3*1e\PYZhy{}2) = 10e\PYZhy{}6}
+         \PY{n}{D2}\PY{o}{.}\PY{n}{write\PYZus{}gds}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MultiMultiWaveguideTutorialNewUnits.gds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                      \PY{n}{unit} \PY{o}{=} \PY{l+m+mf}{1e\PYZhy{}3}\PY{p}{,} \PY{n}{precision} \PY{o}{=} \PY{l+m+mf}{1e\PYZhy{}2}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}16}]:} 'MultiMultiWaveguideTutorialNewUnits.gds'
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{c+c1}{\PYZsh{}==============================================================================}
+         \PY{c+c1}{\PYZsh{} Advanced: Acquiring port information}
+         \PY{c+c1}{\PYZsh{}==============================================================================}
+         \PY{c+c1}{\PYZsh{} In some cases, you may want to gather information about the ports in your}
+         \PY{c+c1}{\PYZsh{} Device.  You can do that using the get\PYZus{}ports(depth) function, which will}
+         \PY{c+c1}{\PYZsh{} return ports within the device}
+         
+         \PY{c+c1}{\PYZsh{} This is empty as D2 does not have any ports of its own, only ports within}
+         \PY{c+c1}{\PYZsh{} its references}
+         \PY{n}{top\PYZus{}level\PYZus{}ports} \PY{o}{=} \PY{n}{D2}\PY{o}{.}\PY{n}{get\PYZus{}ports}\PY{p}{(}\PY{n}{depth} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} This gets the ports from the refrences we added to D2 (mwg1 and mwg2)}
+         \PY{n}{first\PYZus{}level\PYZus{}ports} \PY{o}{=} \PY{n}{D2}\PY{o}{.}\PY{n}{get\PYZus{}ports}\PY{p}{(}\PY{n}{depth} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} This gets all the ports from every level}
+         \PY{n}{all\PYZus{}ports} \PY{o}{=} \PY{n}{D2}\PY{o}{.}\PY{n}{get\PYZus{}ports}\PY{p}{(}\PY{n}{depth} \PY{o}{=} \PY{k+kc}{None}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} We can then filter to find the locations of all ports we defined as \PYZdq{}useful\PYZdq{}:}
+         \PY{k}{for} \PY{n}{p} \PY{o+ow}{in} \PY{n}{all\PYZus{}ports}\PY{p}{:}
+             \PY{k}{if} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{is\PYZus{}useful}\PY{l+s+s1}{\PYZsq{}} \PY{o+ow}{in} \PY{n}{p}\PY{o}{.}\PY{n}{info} \PY{o+ow}{and} \PY{n}{p}\PY{o}{.}\PY{n}{info}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{is\PYZus{}useful}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o+ow}{is} \PY{k+kc}{True}\PY{p}{:}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{str}\PY{p}{(}\PY{n}{p}\PY{p}{)} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ is useful}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Port (name 1, midpoint [11.00961894  2.5       ], width 1, orientation 30.0) is useful
+Port (name 1, midpoint [73.05255888 51.        ], width 1, orientation 30.0) is useful
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{c+c1}{\PYZsh{}==============================================================================}
+         \PY{c+c1}{\PYZsh{} Adding premade geometry with phidl.geometry}
+         \PY{c+c1}{\PYZsh{}==============================================================================}
+         \PY{c+c1}{\PYZsh{} Usually at the beginning of a phidl file we import the phidl.geometry module}
+         \PY{c+c1}{\PYZsh{} as ``pg``, like this:}
+         \PY{k+kn}{import} \PY{n+nn}{phidl}\PY{n+nn}{.}\PY{n+nn}{geometry} \PY{k}{as} \PY{n+nn}{pg}
+         
+         \PY{c+c1}{\PYZsh{} The ``pg`` module contains dozens of premade shapes and structures, ranging}
+         \PY{c+c1}{\PYZsh{} from simple ones like ellipses to complex photonic structures.  Let\PYZsq{}s create}
+         \PY{c+c1}{\PYZsh{} a few simple structures and plot them}
+         \PY{n}{D} \PY{o}{=} \PY{n}{Device}\PY{p}{(}\PY{p}{)}
+         \PY{n}{G1} \PY{o}{=} \PY{n}{pg}\PY{o}{.}\PY{n}{ellipse}\PY{p}{(}\PY{n}{radii} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{,} \PY{n}{angle\PYZus{}resolution} \PY{o}{=} \PY{l+m+mf}{2.5}\PY{p}{,} \PY{n}{layer} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{G2} \PY{o}{=} \PY{n}{pg}\PY{o}{.}\PY{n}{snspd}\PY{p}{(}\PY{n}{wire\PYZus{}width} \PY{o}{=} \PY{l+m+mf}{0.2}\PY{p}{,} \PY{n}{wire\PYZus{}pitch} \PY{o}{=} \PY{l+m+mf}{0.6}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{,} \PY{n}{layer} \PY{o}{=} \PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{G3} \PY{o}{=} \PY{n}{pg}\PY{o}{.}\PY{n}{rectangle}\PY{p}{(}\PY{n}{size} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{,} \PY{n}{layer} \PY{o}{=} \PY{l+m+mi}{3}\PY{p}{)}
+         \PY{n}{g1} \PY{o}{=} \PY{n}{D}\PY{o}{.}\PY{n}{add\PYZus{}ref}\PY{p}{(}\PY{n}{G1}\PY{p}{)}
+         \PY{n}{g2} \PY{o}{=} \PY{n}{D}\PY{o}{.}\PY{n}{add\PYZus{}ref}\PY{p}{(}\PY{n}{G2}\PY{p}{)}
+         \PY{n}{g3} \PY{o}{=} \PY{n}{D}\PY{o}{.}\PY{n}{add\PYZus{}ref}\PY{p}{(}\PY{n}{G3}\PY{p}{)}
+         \PY{n}{g1}\PY{o}{.}\PY{n}{xmin} \PY{o}{=} \PY{n}{g2}\PY{o}{.}\PY{n}{xmax} \PY{o}{+} \PY{l+m+mi}{5}
+         \PY{n}{g3}\PY{o}{.}\PY{n}{xmin} \PY{o}{=} \PY{n}{g1}\PY{o}{.}\PY{n}{xmax} \PY{o}{+} \PY{l+m+mi}{5}
+         \PY{n}{qp}\PY{p}{(}\PY{n}{D}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} There are dozens of these types of structures.  See the /phidl/geometry.py}
+         \PY{c+c1}{\PYZsh{} file for a full geometry list.  Note some of the more complex shapes are }
+         \PY{c+c1}{\PYZsh{} experimental and may change with time.}
+         
+         
+         \PY{c+c1}{\PYZsh{} Let\PYZsq{}s save this file so we can practice importing it in the next step}
+         \PY{n}{D}\PY{o}{.}\PY{n}{write\PYZus{}gds}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MyNewGDS.gds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_17_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}18}]:} 'MyNewGDS.gds'
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{c+c1}{\PYZsh{}==============================================================================}
+         \PY{c+c1}{\PYZsh{} Importing GDS files}
+         \PY{c+c1}{\PYZsh{}==============================================================================}
+         \PY{c+c1}{\PYZsh{} The phidl.geometry module is responsible for generating premade Devices.  }
+         \PY{c+c1}{\PYZsh{} This includes imported geometry from other GDS files too.  When you import}
+         \PY{c+c1}{\PYZsh{} a GDS, you specify which layers you want, and it will import those layers}
+         \PY{c+c1}{\PYZsh{} as a new Device.  The new device can then be manipulated like any other.}
+         
+         \PY{c+c1}{\PYZsh{} Let\PYZsq{}s import the GDS we just saved in the previous step.  Although generally}
+         \PY{c+c1}{\PYZsh{} you must specify which cell in the GDS file you want to import using the }
+         \PY{c+c1}{\PYZsh{} argument `cellname`, if the GDS file has only one top\PYZhy{}level cell (like our}
+         \PY{c+c1}{\PYZsh{} MyLayerSetPreview.gds file does), the cellname argument can be left out and }
+         \PY{c+c1}{\PYZsh{} import\PYZus{}gds() will import that top\PYZhy{}level cell.}
+         
+         \PY{c+c1}{\PYZsh{} Let\PYZsq{}s first just import the entire GDS as\PYZhy{}is}
+         \PY{n}{E} \PY{o}{=} \PY{n}{pg}\PY{o}{.}\PY{n}{import\PYZus{}gds}\PY{p}{(}\PY{n}{filename} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MyNewGDS.gds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{qp}\PY{p}{(}\PY{n}{E}\PY{p}{)}
+         
+         
+         \PY{c+c1}{\PYZsh{} Similarly, we can import the same file but flatten the entire cell}
+         \PY{c+c1}{\PYZsh{} heirarchy}
+         \PY{n}{E2} \PY{o}{=} \PY{n}{pg}\PY{o}{.}\PY{n}{import\PYZus{}gds}\PY{p}{(}\PY{n}{filename} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MyNewGDS.gds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{flatten} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_18_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{c+c1}{\PYZsh{}==============================================================================}
+         \PY{c+c1}{\PYZsh{} Using Layers}
+         \PY{c+c1}{\PYZsh{}==============================================================================}
+         \PY{c+c1}{\PYZsh{} Let\PYZsq{}s make a new blank device DL and add some text to it, but this time on}
+         \PY{c+c1}{\PYZsh{} different layers}
+         \PY{n}{DL} \PY{o}{=} \PY{n}{Device}\PY{p}{(}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} You can specify any layer in one of three ways:}
+         \PY{c+c1}{\PYZsh{} 1) as a single number 0\PYZhy{}255 representing the gds layer number, e.g. layer = 1}
+         \PY{c+c1}{\PYZsh{} where the gds layer datatype will be automatically set to zero}
+         \PY{n}{DL}\PY{o}{.}\PY{n}{add\PYZus{}ref}\PY{p}{(} \PY{n}{pg}\PY{o}{.}\PY{n}{text}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Layer1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{l+m+mi}{10}\PY{p}{,} \PY{n}{layer} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)} \PY{p}{)}
+         
+         
+         \PY{c+c1}{\PYZsh{} 2) as a 2\PYZhy{}element list [0,1] or tuple (0,1) representing the gds layer }
+         \PY{c+c1}{\PYZsh{} number (0\PYZhy{}255) and gds layer datatype (0\PYZhy{}255)  }
+         \PY{n}{DL}\PY{o}{.}\PY{n}{add\PYZus{}ref}\PY{p}{(} \PY{n}{pg}\PY{o}{.}\PY{n}{text}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Layer2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{l+m+mi}{10}\PY{p}{,} \PY{n}{layer} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{)} \PY{p}{)}\PY{o}{.}\PY{n}{movey}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{20}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} 3) as a Layer object  }
+         \PY{n}{my\PYZus{}gold\PYZus{}layer} \PY{o}{=} \PY{n}{Layer}\PY{p}{(}\PY{n}{gds\PYZus{}layer} \PY{o}{=} \PY{l+m+mi}{3}\PY{p}{,} \PY{n}{gds\PYZus{}datatype} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{name} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{goldpads}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{description} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Gold pads liftoff}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{my\PYZus{}unused\PYZus{}layer} \PY{o}{=} \PY{n}{Layer}\PY{p}{(}\PY{l+m+mi}{240}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)} \PY{c+c1}{\PYZsh{} Creates a Layer for GDS layer 240 (dataype 1)}
+         \PY{n}{DL}\PY{o}{.}\PY{n}{add\PYZus{}ref}\PY{p}{(} \PY{n}{pg}\PY{o}{.}\PY{n}{text}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Layer3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{l+m+mi}{10}\PY{p}{,} \PY{n}{layer} \PY{o}{=} \PY{n}{my\PYZus{}gold\PYZus{}layer}\PY{p}{)} \PY{p}{)}\PY{o}{.}\PY{n}{movey}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{40}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}20}]:} DeviceReference (parent Device "text000033", ports [], origin [  0 -40], rotation 0, x\_reflection False)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{c+c1}{\PYZsh{}==============================================================================}
+         \PY{c+c1}{\PYZsh{} Advanced layers: Generating geometry on multiple layers at once}
+         \PY{c+c1}{\PYZsh{}==============================================================================}
+         \PY{c+c1}{\PYZsh{} Say we want to create the same ellipse on several different layers.  We can}
+         \PY{c+c1}{\PYZsh{} do that by using a Python `set` of layers.  So if we want to add it to three}
+         \PY{c+c1}{\PYZsh{} layers, say GDS layer 1 datatype 0, GDS layer 3 datatype 5, and GDS layer 7}
+         \PY{c+c1}{\PYZsh{} datatype 8:}
+         
+         \PY{c+c1}{\PYZsh{} Note each element of the set must be a valid layer input by itself}
+         \PY{n}{my\PYZus{}layers} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{7}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{\PYZcb{}}
+         \PY{c+c1}{\PYZsh{} When you apply the set to add\PYZus{}polygon, you get a list of the returned polygons}
+         \PY{n}{polygon\PYZus{}list} \PY{o}{=} \PY{n}{D}\PY{o}{.}\PY{n}{add\PYZus{}polygon}\PY{p}{(} \PY{p}{[}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}\PY{p}{]}\PY{p}{,} \PY{n}{layer} \PY{o}{=} \PY{n}{my\PYZus{}layers}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{p}{[}\PY{p}{(}\PY{n}{p}\PY{o}{.}\PY{n}{layers}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{p}\PY{o}{.}\PY{n}{datatypes}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)} \PY{k}{for} \PY{n}{p} \PY{o+ow}{in} \PY{n}{polygon\PYZus{}list}\PY{p}{]}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} However, when you use it on a phidl.geometry function, it does not produce}
+         \PY{c+c1}{\PYZsh{} multiple Devices! It will only produce a single Device with geometry on all }
+         \PY{c+c1}{\PYZsh{} of your specified layers. This is because the `layer` argument is passed }
+         \PY{c+c1}{\PYZsh{} transparently to the add\PYZus{}polygon() function through the function}
+         \PY{n}{E} \PY{o}{=} \PY{n}{pg}\PY{o}{.}\PY{n}{ellipse}\PY{p}{(}\PY{n}{layer} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+m+mi}{4}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{,} \PY{l+m+mi}{19}\PY{p}{\PYZcb{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{E}\PY{o}{.}\PY{n}{layers}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[(1, 0), (7, 8), (3, 5)]
+\{8, 19, 4\}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{c+c1}{\PYZsh{}==============================================================================}
+         \PY{c+c1}{\PYZsh{} Advanced layers: Containing multiple Layers in a LayerSet object}
+         \PY{c+c1}{\PYZsh{}==============================================================================}
+         \PY{c+c1}{\PYZsh{} What you can also do is make a LayerSet, which lets you}
+         \PY{c+c1}{\PYZsh{} conveniently call each Layer object just by its name.  You can also specify}
+         \PY{c+c1}{\PYZsh{} the layer color using an RGB triplet e.g (0.1, 0.4, 0.2), an HTML hex color }
+         \PY{c+c1}{\PYZsh{} (e.g. \PYZsh{}a31df4), or a CSS3 color name (e.g. \PYZsq{}gold\PYZsq{} or \PYZsq{}lightblue\PYZsq{}}
+         \PY{c+c1}{\PYZsh{} see http://www.w3schools.com/colors/colors\PYZus{}names.asp )}
+         \PY{c+c1}{\PYZsh{} The \PYZsq{}alpha\PYZsq{} argument also lets you specify how transparent that layer should}
+         \PY{c+c1}{\PYZsh{} look when using quickplot (has no effect on the written GDS file)}
+         
+         \PY{n}{ls} \PY{o}{=} \PY{n}{LayerSet}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{} Create a blank LayerSet}
+         \PY{n}{ls}\PY{o}{.}\PY{n}{add\PYZus{}layer}\PY{p}{(}\PY{n}{name} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{au}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{gds\PYZus{}layer} \PY{o}{=} \PY{l+m+mi}{4}\PY{p}{,} \PY{n}{gds\PYZus{}datatype} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,}  \PY{n}{description} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Gold wiring}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{goldenrod}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ls}\PY{o}{.}\PY{n}{add\PYZus{}layer}\PY{p}{(}\PY{n}{name} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{gds\PYZus{}layer} \PY{o}{=} \PY{l+m+mi}{5}\PY{p}{,} \PY{n}{gds\PYZus{}datatype} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{,}  \PY{n}{description} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Niobium liftoff}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{p}{(}\PY{l+m+mf}{0.4}\PY{p}{,}\PY{l+m+mf}{0.1}\PY{p}{,}\PY{l+m+mf}{0.1}\PY{p}{)}\PY{p}{)}
+         \PY{n}{ls}\PY{o}{.}\PY{n}{add\PYZus{}layer}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nb\PYZus{}etch}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lightblue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha} \PY{o}{=} \PY{l+m+mf}{0.2}\PY{p}{)}
+         
+         
+         \PY{n}{ls}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{au}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} Now that our layers are defined, we can call them from the LayerSet in the same way}
+         \PY{c+c1}{\PYZsh{} we would from a dictionary, where the name becomes the key:}
+         \PY{n}{text1} \PY{o}{=} \PY{n}{DL}\PY{o}{.}\PY{n}{add\PYZus{}ref}\PY{p}{(} \PY{n}{pg}\PY{o}{.}\PY{n}{text}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Gold layer}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{l+m+mi}{10}\PY{p}{,} \PY{n}{layer} \PY{o}{=} \PY{n}{ls}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{au}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)} \PY{p}{)}\PY{o}{.}\PY{n}{movey}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{60}\PY{p}{)}
+         \PY{n}{text2} \PY{o}{=} \PY{n}{DL}\PY{o}{.}\PY{n}{add\PYZus{}ref}\PY{p}{(} \PY{n}{pg}\PY{o}{.}\PY{n}{text}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Niobium layer}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{l+m+mi}{10}\PY{p}{,} \PY{n}{layer} \PY{o}{=} \PY{n}{ls}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)} \PY{p}{)}\PY{o}{.}\PY{n}{movey}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{80}\PY{p}{)}
+         \PY{n}{text3} \PY{o}{=} \PY{n}{DL}\PY{o}{.}\PY{n}{add\PYZus{}ref}\PY{p}{(} \PY{n}{pg}\PY{o}{.}\PY{n}{text}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Nb Etch layer}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{l+m+mi}{10}\PY{p}{,} \PY{n}{layer} \PY{o}{=} \PY{n}{ls}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nb\PYZus{}etch}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)} \PY{p}{)}\PY{o}{.}\PY{n}{movey}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{90}\PY{p}{)}\PY{o}{.}\PY{n}{movex}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+         
+         
+         \PY{c+c1}{\PYZsh{} We can additionally use a LayerSet to add the same structure to several}
+         \PY{c+c1}{\PYZsh{} layers at once by passing the whole layerset to the layer argument}
+         \PY{n}{text4} \PY{o}{=} \PY{n}{DL}\PY{o}{.}\PY{n}{add\PYZus{}ref}\PY{p}{(} \PY{n}{pg}\PY{o}{.}\PY{n}{text}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{All layers}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{l+m+mi}{10}\PY{p}{,} \PY{n}{layer} \PY{o}{=} \PY{n}{ls}\PY{p}{)} \PY{p}{)}\PY{o}{.}\PY{n}{movey}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{120}\PY{p}{)}
+         
+         
+         \PY{n}{qp}\PY{p}{(}\PY{n}{DL}\PY{p}{)}
+         \PY{n}{DL}\PY{o}{.}\PY{n}{write\PYZus{}gds}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MultipleLayerText.gds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_21_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}22}]:} 'MultipleLayerText.gds'
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{c+c1}{\PYZsh{} If we want to examine any single layer, we can call them by their names,}
+         \PY{c+c1}{\PYZsh{} for example}
+         \PY{n}{gold\PYZus{}layer} \PY{o}{=} \PY{n}{ls}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{au}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{ls}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} We can quickly preview our color scheme using the LayerSet.preview()}
+         \PY{c+c1}{\PYZsh{} function as well.}
+         \PY{n}{P} \PY{o}{=} \PY{n}{pg}\PY{o}{.}\PY{n}{preview\PYZus{}layerset}\PY{p}{(}\PY{n}{ls}\PY{p}{)}
+         \PY{n}{qp}\PY{p}{(}\PY{n}{P}\PY{p}{)}
+         \PY{n}{P}\PY{o}{.}\PY{n}{write\PYZus{}gds}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MyLayerSetPreview.gds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Layer (name nb, GDS layer 5, GDS datatype 0, description Niobium liftoff, color \#661919)
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_22_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}23}]:} 'MyLayerSetPreview.gds'
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{} We can even save the LayerSet as a KLayout .lyp file (\PYZdq{}layer properties\PYZdq{} file)}
+        \PY{c+c1}{\PYZsh{} useful for getting the color scheme in KLayout to match quickplot}
+        \PY{k+kn}{import} \PY{n+nn}{phidl}\PY{n+nn}{.}\PY{n+nn}{utilities} \PY{k}{as} \PY{n+nn}{pu}
+        \PY{n}{pu}\PY{o}{.}\PY{n}{write\PYZus{}lyp}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MyLayerSetPreview.lyp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{layerset} \PY{o}{=} \PY{n}{ls}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}56}]:} \PY{c+c1}{\PYZsh{}==============================================================================}
+         \PY{c+c1}{\PYZsh{} Removing  layers}
+         \PY{c+c1}{\PYZsh{}==============================================================================}
+         \PY{c+c1}{\PYZsh{} Now say we only wanted to get layers 4 and 5 from an imported.  We can remove}
+         \PY{c+c1}{\PYZsh{} the unwanted layers using the remove\PYZus{}layers() function}
+         \PY{n}{D} \PY{o}{=} \PY{n}{pg}\PY{o}{.}\PY{n}{import\PYZus{}gds}\PY{p}{(}\PY{n}{filename} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MyLayerSetPreview.gds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} We set \PYZdq{}invert\PYZus{}selection\PYZdq{} to True so that all layers EXCEPT 4 and 5}
+         \PY{c+c1}{\PYZsh{} are removed}
+         \PY{c+c1}{\PYZsh{} D.remove\PYZus{}layers(layers = [4,5], invert\PYZus{}selection = True)}
+         \PY{c+c1}{\PYZsh{} qp(D)}
+         \PY{c+c1}{\PYZsh{} If we later decide that we actually don\PYZsq{}t want layer 4, as well, we}
+         \PY{c+c1}{\PYZsh{} can leave the `invert\PYZus{}selection` argument blank}
+         \PY{n}{D}\PY{o}{.}\PY{n}{remove\PYZus{}layers}\PY{p}{(}\PY{n}{layers} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{)}
+         \PY{n}{qp}\PY{p}{(}\PY{n}{D}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_24_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{c+c1}{\PYZsh{}==============================================================================}
+         \PY{c+c1}{\PYZsh{} Remapping layers}
+         \PY{c+c1}{\PYZsh{}==============================================================================}
+         \PY{c+c1}{\PYZsh{} Let\PYZsq{}s import our layerset preview again}
+         \PY{n}{D} \PY{o}{=} \PY{n}{pg}\PY{o}{.}\PY{n}{import\PYZus{}gds}\PY{p}{(}\PY{n}{filename} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MyLayerSetPreview.gds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} We can use the remap\PYZus{}layers() function to map layers arbitrarily. Say we}
+         \PY{c+c1}{\PYZsh{} wanted to move shapes on layer 5 to layer 99, and layer 6 to layer 77}
+         \PY{c+c1}{\PYZsh{} but leave the other layers alone.  We can map layers 5\PYZhy{}\PYZgt{}99, 6\PYZhy{}\PYZgt{}77, and leave}
+         \PY{c+c1}{\PYZsh{} any other layers alone by passing a dict to the `layermap` argument}
+         \PY{n}{D}\PY{o}{.}\PY{n}{remap\PYZus{}layers}\PY{p}{(}\PY{n}{layermap} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+m+mi}{5}\PY{p}{:} \PY{l+m+mi}{99}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{:}\PY{l+m+mi}{77}\PY{p}{\PYZcb{}}\PY{p}{)}
+         \PY{n}{qp}\PY{p}{(}\PY{n}{D}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_25_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{c+c1}{\PYZsh{}==============================================================================}
+         \PY{c+c1}{\PYZsh{} Constructing a Device from set of parameters (dictionary or config file)}
+         \PY{c+c1}{\PYZsh{}==============================================================================}
+         \PY{c+c1}{\PYZsh{} Say we want to make a more complicated waveguide which requires more}
+         \PY{c+c1}{\PYZsh{} parameters.  Instead of passing them individually, we can store them in a}
+         \PY{c+c1}{\PYZsh{} dictionary (or configuration file) and pass that dictionary to the Device()}
+         \PY{c+c1}{\PYZsh{} function.}
+         
+         \PY{k}{def} \PY{n+nf}{complicated\PYZus{}waveguide}\PY{p}{(}\PY{n}{width} \PY{o}{=} \PY{l+m+mi}{10}\PY{p}{,} \PY{n}{height} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{x} \PY{o}{=} \PY{l+m+mi}{10}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{l+m+mi}{25}\PY{p}{,} \PY{n}{rotation} \PY{o}{=} \PY{l+m+mi}{15}\PY{p}{)}\PY{p}{:}
+             \PY{n}{C} \PY{o}{=} \PY{n}{Device}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{complicated\PYZus{}waveguide}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{C}\PY{o}{.}\PY{n}{add\PYZus{}polygon}\PY{p}{(} \PY{p}{[}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{n}{width}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{n}{width}\PY{p}{,} \PY{n}{height}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{height}\PY{p}{)}\PY{p}{]} \PY{p}{)}
+             \PY{n}{C}\PY{o}{.}\PY{n}{add\PYZus{}port}\PY{p}{(}\PY{n}{name} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{midpoint} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{height}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{n}{width} \PY{o}{=} \PY{n}{height}\PY{p}{,} \PY{n}{orientation} \PY{o}{=} \PY{l+m+mi}{180}\PY{p}{)}
+             \PY{n}{C}\PY{o}{.}\PY{n}{add\PYZus{}port}\PY{p}{(}\PY{n}{name} \PY{o}{=} \PY{l+m+mi}{2}\PY{p}{,} \PY{n}{midpoint} \PY{o}{=} \PY{p}{[}\PY{n}{width}\PY{p}{,}\PY{n}{height}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{n}{width} \PY{o}{=} \PY{n}{height}\PY{p}{,} \PY{n}{orientation} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{)}
+             \PY{n}{C}\PY{o}{.}\PY{n}{rotate}\PY{p}{(}\PY{n}{angle} \PY{o}{=} \PY{n}{rotation}\PY{p}{,} \PY{n}{center} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}
+             \PY{n}{C}\PY{o}{.}\PY{n}{move}\PY{p}{(}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{)}\PY{p}{)}
+             \PY{k}{return} \PY{n}{C}
+             
+         \PY{n}{cwg\PYZus{}parameters} \PY{o}{=} \PY{p}{\PYZob{}}
+                     \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{width}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{l+m+mi}{14}\PY{p}{,}
+                     \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{height}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{l+m+mi}{1}\PY{p}{,}
+                     \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{l+m+mi}{15}\PY{p}{,}
+                     \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{l+m+mi}{20}\PY{p}{,}
+                     \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rotation}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{l+m+mi}{0}
+                     \PY{p}{\PYZcb{}}
+         
+         \PY{c+c1}{\PYZsh{} We can either create the complicated\PYZus{}waveguide() the normal way}
+         \PY{n}{C1} \PY{o}{=} \PY{n}{complicated\PYZus{}waveguide}\PY{p}{(}\PY{n}{width} \PY{o}{=} \PY{l+m+mi}{14}\PY{p}{,} \PY{n}{height} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{x} \PY{o}{=} \PY{l+m+mi}{15}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{l+m+mi}{20}\PY{p}{,} \PY{n}{rotation} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{qp}\PY{p}{(}\PY{n}{C1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_26_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{c+c1}{\PYZsh{} Or we can pass the complicated\PYZus{}waveguide function and our parameter list}
+         \PY{c+c1}{\PYZsh{} to the Device() function which will generate it for us using our config}
+         \PY{n}{C2} \PY{o}{=} \PY{n}{make\PYZus{}device}\PY{p}{(}\PY{n}{complicated\PYZus{}waveguide}\PY{p}{,} \PY{n}{config} \PY{o}{=} \PY{n}{cwg\PYZus{}parameters}\PY{p}{)}
+         \PY{n}{qp}\PY{p}{(}\PY{n}{C2}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_27_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{c+c1}{\PYZsh{} We can also override any parameter we like in our dictionary of parameters}
+         \PY{c+c1}{\PYZsh{} by adding keyword arguments \PYZhy{}\PYZhy{} the input dictionary is untouched afterwards}
+         \PY{n}{C3} \PY{o}{=} \PY{n}{make\PYZus{}device}\PY{p}{(}\PY{n}{complicated\PYZus{}waveguide}\PY{p}{,} \PY{n}{config} \PY{o}{=} \PY{n}{cwg\PYZus{}parameters}\PY{p}{,} \PY{n}{width} \PY{o}{=} \PY{l+m+mi}{500}\PY{p}{,} \PY{n}{rotation} \PY{o}{=} \PY{l+m+mi}{35}\PY{p}{)}
+         \PY{n}{qp}\PY{p}{(}\PY{n}{C3}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_28_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{c+c1}{\PYZsh{} The most useful implementation of this is to keep a standard set of }
+         \PY{c+c1}{\PYZsh{} parameters and then override certain parameters each iteration of the for }
+         \PY{c+c1}{\PYZsh{} loop. Say we want to use our standard cwg\PYZus{}parameters but change the height}
+         \PY{c+c1}{\PYZsh{}  each time:}
+         \PY{n}{D} \PY{o}{=} \PY{n}{Device}\PY{p}{(}\PY{p}{)}
+         \PY{k}{for} \PY{n}{h} \PY{o+ow}{in} \PY{p}{[}\PY{l+m+mf}{0.1}\PY{p}{,} \PY{l+m+mf}{0.5}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{]}\PY{p}{:}
+             \PY{n}{C4} \PY{o}{=} \PY{n}{make\PYZus{}device}\PY{p}{(}\PY{n}{complicated\PYZus{}waveguide}\PY{p}{,} \PY{n}{config} \PY{o}{=} \PY{n}{cwg\PYZus{}parameters}\PY{p}{,} \PY{n}{height} \PY{o}{=} \PY{n}{h}\PY{p}{)}
+             \PY{n}{c4} \PY{o}{=} \PY{n}{D}\PY{o}{.}\PY{n}{add\PYZus{}ref}\PY{p}{(} \PY{n}{C4} \PY{p}{)}
+             \PY{n}{c4}\PY{o}{.}\PY{n}{ymin} \PY{o}{=} \PY{n}{D}\PY{o}{.}\PY{n}{ymax} \PY{o}{+} \PY{l+m+mi}{10}
+         \PY{n}{qp}\PY{p}{(}\PY{n}{D}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_29_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{c+c1}{\PYZsh{}==============================================================================}
+         \PY{c+c1}{\PYZsh{} Keeping track of geometry using the \PYZdq{}alias\PYZdq{} functionality}
+         \PY{c+c1}{\PYZsh{}==============================================================================}
+         \PY{c+c1}{\PYZsh{} It can be useful to keep track of our DeviceReferences without}
+         \PY{c+c1}{\PYZsh{} needing to assign the reference to a variable.  We can do this by specifying}
+         \PY{c+c1}{\PYZsh{} an \PYZsq{}alias\PYZsq{} for the added DeviceReference.}
+         
+         \PY{c+c1}{\PYZsh{} For instance, if we wanted to keep track of a circle references twice in D,}
+         \PY{c+c1}{\PYZsh{} we might normally assign each reference to a separate variable:}
+         \PY{n}{D} \PY{o}{=} \PY{n}{Device}\PY{p}{(}\PY{p}{)}
+         \PY{n}{C} \PY{o}{=} \PY{n}{pg}\PY{o}{.}\PY{n}{circle}\PY{p}{(}\PY{p}{)}
+         \PY{n}{c1} \PY{o}{=} \PY{n}{D}\PY{o}{.}\PY{n}{add\PYZus{}ref}\PY{p}{(}\PY{n}{C}\PY{p}{)}   \PY{c+c1}{\PYZsh{} Add first reference}
+         \PY{n}{c2} \PY{o}{=} \PY{n}{D}\PY{o}{.}\PY{n}{add\PYZus{}ref}\PY{p}{(}\PY{n}{C}\PY{p}{)}   \PY{c+c1}{\PYZsh{} Add second reference}
+         \PY{n}{c2}\PY{o}{.}\PY{n}{x} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{15}          \PY{c+c1}{\PYZsh{} Move the second circle over by 10}
+         \PY{n}{qp}\PY{p}{(}\PY{n}{c2}\PY{p}{)}
+         \PY{n}{qp}\PY{p}{(}\PY{n}{D}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_30_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_30_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{c+c1}{\PYZsh{} But rather than cluttering up the list of variables with these refernces,}
+         \PY{c+c1}{\PYZsh{} we can instead create \PYZsq{}aliases\PYZsq{} to each reference, and call them directly}
+         \PY{c+c1}{\PYZsh{} out of D like you would with a Python dictionary.  For example:}
+         \PY{n}{D} \PY{o}{=} \PY{n}{Device}\PY{p}{(}\PY{p}{)}
+         \PY{n}{C} \PY{o}{=} \PY{n}{pg}\PY{o}{.}\PY{n}{circle}\PY{p}{(}\PY{p}{)}
+         \PY{n}{D}\PY{o}{.}\PY{n}{add\PYZus{}ref}\PY{p}{(}\PY{n}{C}\PY{p}{,} \PY{n}{alias} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{circle1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{} Add first reference}
+         \PY{n}{D}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{circle2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{D}\PY{o}{.}\PY{n}{add\PYZus{}ref}\PY{p}{(}\PY{n}{C}\PY{p}{)} \PY{c+c1}{\PYZsh{} Add second reference in a different style}
+         \PY{n}{D}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{circle3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{D} \PY{o}{\PYZlt{}\PYZlt{}} \PY{n}{C} \PY{c+c1}{\PYZsh{} Add third reference in yet another way!}
+         
+         \PY{c+c1}{\PYZsh{} Even though we created these references/aliases three different ways,}
+         \PY{c+c1}{\PYZsh{} they all behave the same way:}
+         \PY{n}{D}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{circle1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{x} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{5}            \PY{c+c1}{\PYZsh{} Moving the second circle over by 5}
+         \PY{n}{D}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{circle2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{x} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{10}            \PY{c+c1}{\PYZsh{} Moving the second circle over by 10}
+         \PY{n}{D}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{circle3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{x} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{15}            \PY{c+c1}{\PYZsh{} Moving the second circle over by 15}
+         \PY{c+c1}{\PYZsh{} Note that at this point, D[\PYZsq{}circle2\PYZsq{}] is equivalent to the variable c2}
+         \PY{c+c1}{\PYZsh{} we made above}
+         \PY{n}{qp}\PY{p}{(}\PY{n}{D}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{circle2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{label\PYZus{}aliases} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{qp}\PY{p}{(}\PY{n}{D}\PY{p}{,} \PY{n}{label\PYZus{}aliases} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} You can also access the list of aliases for your Device whenever you want }
+         \PY{c+c1}{\PYZsh{} to by accessing Device.aliases, which is a Python dictionary.  For example:}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{D}\PY{o}{.}\PY{n}{aliases}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{D}\PY{o}{.}\PY{n}{aliases}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_31_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_31_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+\{'circle1': DeviceReference (parent Device "circle000095", ports [], origin [5. 0.], rotation 0, x\_reflection False), 'circle2': DeviceReference (parent Device "circle000095", ports [], origin [10.  0.], rotation 0, x\_reflection False), 'circle3': DeviceReference (parent Device "circle000095", ports [], origin [15.  0.], rotation 0, x\_reflection False)\}
+dict\_keys(['circle1', 'circle2', 'circle3'])
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{c+c1}{\PYZsh{}==============================================================================}
+         \PY{c+c1}{\PYZsh{} Flattening a Device}
+         \PY{c+c1}{\PYZsh{}==============================================================================}
+         \PY{c+c1}{\PYZsh{} Sometimes you want to remove references from a Device while keeping all}
+         \PY{c+c1}{\PYZsh{} of the shapes/polygons intact and in place.  The D.flatten() keeps all the }
+         \PY{c+c1}{\PYZsh{} polygons in D, but removes all the underlying references it\PYZsq{}s attached to.}
+         \PY{c+c1}{\PYZsh{} Also, if you specify the `single\PYZus{}layer` argument it will move all of the}
+         \PY{c+c1}{\PYZsh{} polyons to that single layer}
+         
+         \PY{n}{D} \PY{o}{=} \PY{n}{Device}\PY{p}{(}\PY{p}{)}
+         \PY{n}{E1} \PY{o}{=} \PY{n}{pg}\PY{o}{.}\PY{n}{ellipse}\PY{p}{(}\PY{n}{layer} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{E2} \PY{o}{=} \PY{n}{pg}\PY{o}{.}\PY{n}{ellipse}\PY{p}{(}\PY{n}{layer} \PY{o}{=} \PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{D}\PY{o}{.}\PY{n}{add\PYZus{}ref}\PY{p}{(}\PY{n}{E1}\PY{p}{)}
+         \PY{n}{D}\PY{o}{.}\PY{n}{add\PYZus{}ref}\PY{p}{(}\PY{n}{E2}\PY{p}{)}\PY{o}{.}\PY{n}{movex}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{)}
+         
+         \PY{n}{D}\PY{o}{.}\PY{n}{write\PYZus{}gds}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{D\PYZus{}ellipses.gds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{D}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)}
+         \PY{n}{D}\PY{o}{.}\PY{n}{write\PYZus{}gds}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{D\PYZus{}ellipses\PYZus{}flattened.gds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{D}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{n}{single\PYZus{}layer} \PY{o}{=} \PY{l+m+mi}{5}\PY{p}{)}
+         \PY{n}{D}\PY{o}{.}\PY{n}{write\PYZus{}gds}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{D\PYZus{}ellipses\PYZus{}flattened\PYZus{}singlelayer.gds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}33}]:} 'D\_ellipses\_flattened\_singlelayer.gds'
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{c+c1}{\PYZsh{}==============================================================================}
+         \PY{c+c1}{\PYZsh{} Decluttering \PYZhy{} Absorbing references into a main Device}
+         \PY{c+c1}{\PYZsh{}==============================================================================}
+         \PY{c+c1}{\PYZsh{} Say you had a Device \PYZdq{}D\PYZdq{} which contains several references named }
+         \PY{c+c1}{\PYZsh{} \PYZdq{}ref1\PYZdq{}, \PYZdq{}ref2\PYZdq{}, \PYZdq{}ref\PYZus{}cluttered\PYZdq{}.  Suppose the reference \PYZdq{}ref\PYZus{}cluttered\PYZdq{} is }
+         \PY{c+c1}{\PYZsh{} cluttering up your cell hierarchy when you\PYZsq{}re viewing it in your favorite}
+         \PY{c+c1}{\PYZsh{} GDS viewer.  The D.absorb() function can eliminate the \PYZdq{}ref\PYZus{}cluttered\PYZdq{}}
+         \PY{c+c1}{\PYZsh{} hierarchy while maintaining the geometry \PYZhy{}\PYZhy{} it strips out all the polygons}
+         \PY{c+c1}{\PYZsh{} from \PYZdq{}ref\PYZus{}cluttered\PYZdq{} and adds them directly to \PYZdq{}D\PYZdq{}, then removes}
+         \PY{c+c1}{\PYZsh{} the reference \PYZdq{}ref\PYZus{}cluttered\PYZdq{} from D entirely}
+         
+         \PY{n}{D} \PY{o}{=} \PY{n}{Device}\PY{p}{(}\PY{p}{)}
+         \PY{n}{E1} \PY{o}{=} \PY{n}{pg}\PY{o}{.}\PY{n}{ellipse}\PY{p}{(}\PY{n}{layer} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{E2} \PY{o}{=} \PY{n}{pg}\PY{o}{.}\PY{n}{ellipse}\PY{p}{(}\PY{n}{layer} \PY{o}{=} \PY{l+m+mi}{2}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} The SNSPD has a lot of underlying hierarchy}
+         \PY{n}{S1} \PY{o}{=} \PY{n}{pg}\PY{o}{.}\PY{n}{snspd}\PY{p}{(}\PY{n}{layer} \PY{o}{=} \PY{l+m+mi}{3}\PY{p}{)}
+         \PY{n}{ref1} \PY{o}{=} \PY{n}{D}\PY{o}{.}\PY{n}{add\PYZus{}ref}\PY{p}{(}\PY{n}{E1}\PY{p}{)}
+         \PY{n}{ref2} \PY{o}{=} \PY{n}{D}\PY{o}{.}\PY{n}{add\PYZus{}ref}\PY{p}{(}\PY{n}{E2}\PY{p}{)}\PY{o}{.}\PY{n}{movex}\PY{p}{(}\PY{l+m+mi}{50}\PY{p}{)}
+         \PY{n}{ref\PYZus{}cluttered} \PY{o}{=} \PY{n}{D}\PY{o}{.}\PY{n}{add\PYZus{}ref}\PY{p}{(}\PY{n}{S1}\PY{p}{)}\PY{o}{.}\PY{n}{movex}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{)}
+         
+         \PY{n}{D}\PY{o}{.}\PY{n}{write\PYZus{}gds}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{D\PYZus{}cluttered.gds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{D}\PY{o}{.}\PY{n}{absorb}\PY{p}{(}\PY{n}{ref\PYZus{}cluttered}\PY{p}{)}
+         \PY{n}{D}\PY{o}{.}\PY{n}{write\PYZus{}gds}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{D\PYZus{}de\PYZus{}cluttered.gds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}34}]:} 'D\_de\_cluttered.gds'
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}57}]:} \PY{c+c1}{\PYZsh{}==============================================================================}
+         \PY{c+c1}{\PYZsh{} Copying a Device}
+         \PY{c+c1}{\PYZsh{}==============================================================================}
+         \PY{c+c1}{\PYZsh{} Since copying a Device involves creating a new geometry, you can copy a }
+         \PY{c+c1}{\PYZsh{} Device D using the pg.copy(D) or pg.deepcopy(D) function.  pg.copy(D) }
+         \PY{c+c1}{\PYZsh{} maintains the underlying connections to other Device, so that newly\PYZhy{}created }
+         \PY{c+c1}{\PYZsh{} Device uses the same references as the original device.  Conversely, }
+         \PY{c+c1}{\PYZsh{} pg.deepcopy() creates completely new copies of every underlying polygon and}
+         \PY{c+c1}{\PYZsh{} reference, so that the newly\PYZhy{}created Device shares no dependencies/references}
+         \PY{c+c1}{\PYZsh{} with the original Device.  These functions are especially useful if }
+         \PY{c+c1}{\PYZsh{} you want to flatten a geometry without damaging the structure of the }
+         \PY{c+c1}{\PYZsh{} original Device.}
+         
+         \PY{n}{D} \PY{o}{=} \PY{n}{Device}\PY{p}{(}\PY{p}{)}
+         \PY{n}{E1} \PY{o}{=} \PY{n}{pg}\PY{o}{.}\PY{n}{ellipse}\PY{p}{(}\PY{n}{layer} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{E2} \PY{o}{=} \PY{n}{pg}\PY{o}{.}\PY{n}{rectangle}\PY{p}{(}\PY{n}{layer} \PY{o}{=} \PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{D}\PY{o}{.}\PY{n}{add\PYZus{}ref}\PY{p}{(}\PY{n}{E1}\PY{p}{)}
+         \PY{n}{D}\PY{o}{.}\PY{n}{add\PYZus{}ref}\PY{p}{(}\PY{n}{E2}\PY{p}{)}\PY{o}{.}\PY{n}{movex}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{)}
+         
+         \PY{n}{D\PYZus{}copied} \PY{o}{=} \PY{n}{pg}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{n}{D}\PY{p}{)}
+         \PY{n}{qp}\PY{p}{(}\PY{n}{D\PYZus{}copied}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_34_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{c+c1}{\PYZsh{} Observe that if we add geometry to D now, D\PYZus{}copied is unaffected}
+         \PY{n}{D}\PY{o}{.}\PY{n}{add\PYZus{}ref}\PY{p}{(}\PY{n}{pg}\PY{o}{.}\PY{n}{circle}\PY{p}{(}\PY{p}{)}\PY{p}{)} 
+         \PY{n}{D}\PY{o}{.}\PY{n}{rotate}\PY{p}{(}\PY{l+m+mi}{45}\PY{p}{)}
+         \PY{n}{qp}\PY{p}{(}\PY{n}{D\PYZus{}copied}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_35_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{c+c1}{\PYZsh{} However, note that if we now modify the underlying Devices (which}
+         \PY{c+c1}{\PYZsh{} were referenced in D, and whose references were copied to D\PYZus{}copied), both}
+         \PY{c+c1}{\PYZsh{} the original D and D\PYZus{}copied are affected:}
+         \PY{n}{E1}\PY{o}{.}\PY{n}{add\PYZus{}polygon}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{20}\PY{p}{,}\PY{l+m+mi}{35}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{60}\PY{p}{,}\PY{l+m+mi}{40}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{layer} \PY{o}{=} \PY{l+m+mi}{3}\PY{p}{)}
+         \PY{n}{qp}\PY{p}{(}\PY{n}{D\PYZus{}copied}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{c+c1}{\PYZsh{} If instead we use pg.deepcopy(), all of the underlying references are copied}
+         \PY{c+c1}{\PYZsh{} and used in the new D\PYZus{}deepcopied device.  So if we change one of the old}
+         \PY{c+c1}{\PYZsh{} references, the new D\PYZus{}deepcopied doesn\PYZsq{}t get affected}
+         \PY{n}{D} \PY{o}{=} \PY{n}{Device}\PY{p}{(}\PY{p}{)}
+         \PY{n}{E1} \PY{o}{=} \PY{n}{pg}\PY{o}{.}\PY{n}{ellipse}\PY{p}{(}\PY{n}{layer} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{E2} \PY{o}{=} \PY{n}{pg}\PY{o}{.}\PY{n}{rectangle}\PY{p}{(}\PY{n}{layer} \PY{o}{=} \PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{D}\PY{o}{.}\PY{n}{add\PYZus{}ref}\PY{p}{(}\PY{n}{E1}\PY{p}{)}
+         \PY{n}{D}\PY{o}{.}\PY{n}{add\PYZus{}ref}\PY{p}{(}\PY{n}{E2}\PY{p}{)}\PY{o}{.}\PY{n}{movex}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{)}
+         
+         \PY{n}{D\PYZus{}deepcopied} \PY{o}{=} \PY{n}{pg}\PY{o}{.}\PY{n}{deepcopy}\PY{p}{(}\PY{n}{D}\PY{p}{)}
+         \PY{n}{qp}\PY{p}{(}\PY{n}{D\PYZus{}deepcopied}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_37_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{c+c1}{\PYZsh{} As before, if we add geometry to D now, D\PYZus{}deepcopied is unaffected}
+         \PY{n}{D}\PY{o}{.}\PY{n}{add\PYZus{}ref}\PY{p}{(}\PY{n}{pg}\PY{o}{.}\PY{n}{circle}\PY{p}{(}\PY{p}{)}\PY{p}{)} 
+         \PY{n}{D}\PY{o}{.}\PY{n}{rotate}\PY{p}{(}\PY{l+m+mi}{45}\PY{p}{)}
+         \PY{n}{qp}\PY{p}{(}\PY{n}{D\PYZus{}deepcopied}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_38_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{c+c1}{\PYZsh{} However, now if we mess with the underlying Devices of D, D\PYZus{}deepcopied}
+         \PY{c+c1}{\PYZsh{} is not affected like it was before.}
+         \PY{n}{E1}\PY{o}{.}\PY{n}{add\PYZus{}polygon}\PY{p}{(}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{20}\PY{p}{,}\PY{l+m+mi}{35}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{60}\PY{p}{,}\PY{l+m+mi}{40}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{layer} \PY{o}{=} \PY{l+m+mi}{3}\PY{p}{)}
+         \PY{n}{qp}\PY{p}{(}\PY{n}{D\PYZus{}deepcopied}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_39_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{c+c1}{\PYZsh{}==============================================================================}
+         \PY{c+c1}{\PYZsh{} Extracting layers}
+         \PY{c+c1}{\PYZsh{}==============================================================================}
+         \PY{c+c1}{\PYZsh{} Say you want to grab all the polygons of a single layer from your Device. You }
+         \PY{c+c1}{\PYZsh{} can do this using the pg.extract() function, which will create a new Device}
+         \PY{c+c1}{\PYZsh{} with all of the polygons from D.  Note that the Device created from this}
+         \PY{c+c1}{\PYZsh{} function is necessarily flattened (otherwise it could inadvertantly modify }
+         \PY{c+c1}{\PYZsh{} other Devices which share references with the extracted Device)}
+         
+         \PY{n}{D} \PY{o}{=} \PY{n}{Device}\PY{p}{(}\PY{p}{)}
+         \PY{n}{E1} \PY{o}{=} \PY{n}{pg}\PY{o}{.}\PY{n}{ellipse}\PY{p}{(}\PY{n}{layer} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{E2} \PY{o}{=} \PY{n}{pg}\PY{o}{.}\PY{n}{rectangle}\PY{p}{(}\PY{n}{layer} \PY{o}{=} \PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{E3} \PY{o}{=} \PY{n}{pg}\PY{o}{.}\PY{n}{arc}\PY{p}{(}\PY{n}{layer} \PY{o}{=} \PY{l+m+mi}{3}\PY{p}{)}
+         \PY{n}{D}\PY{o}{.}\PY{n}{add\PYZus{}ref}\PY{p}{(}\PY{n}{E1}\PY{p}{)}
+         \PY{n}{D}\PY{o}{.}\PY{n}{add\PYZus{}ref}\PY{p}{(}\PY{n}{E2}\PY{p}{)}\PY{o}{.}\PY{n}{movex}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{)}
+         \PY{n}{D}\PY{o}{.}\PY{n}{add\PYZus{}ref}\PY{p}{(}\PY{n}{E3}\PY{p}{)}\PY{o}{.}\PY{n}{movex}\PY{p}{(}\PY{l+m+mi}{30}\PY{p}{)}
+         \PY{n}{qp}\PY{p}{(}\PY{n}{D}\PY{p}{)}
+         
+         \PY{n}{D\PYZus{}only\PYZus{}layers\PYZus{}1\PYZus{}and\PYZus{}2} \PY{o}{=} \PY{n}{pg}\PY{o}{.}\PY{n}{extract}\PY{p}{(}\PY{n}{D}\PY{p}{,} \PY{n}{layers} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+         \PY{n}{qp}\PY{p}{(}\PY{n}{D\PYZus{}only\PYZus{}layers\PYZus{}1\PYZus{}and\PYZus{}2}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_40_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_40_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}42}]:} \PY{c+c1}{\PYZsh{}==============================================================================}
+         \PY{c+c1}{\PYZsh{} Making boolean shapes}
+         \PY{c+c1}{\PYZsh{}==============================================================================}
+         \PY{c+c1}{\PYZsh{} If you want to subtract one shape from another, merge two shapes, or }
+         \PY{c+c1}{\PYZsh{} perform an XOR on them, you can do that with the pg.boolean() function.}
+         \PY{c+c1}{\PYZsh{} the ``operation`` argument should be \PYZob{}not, and, or, xor, \PYZsq{}A\PYZhy{}B\PYZsq{}, \PYZsq{}B\PYZhy{}A\PYZsq{}, \PYZsq{}A+B\PYZsq{}\PYZcb{}.}
+         \PY{c+c1}{\PYZsh{} Note that \PYZsq{}A+B\PYZsq{} is equivalent to \PYZsq{}or\PYZsq{}, \PYZsq{}A\PYZhy{}B\PYZsq{} is equivalent to \PYZsq{}not\PYZsq{}, and}
+         \PY{c+c1}{\PYZsh{}  \PYZsq{}B\PYZhy{}A\PYZsq{} is equivalent to \PYZsq{}not\PYZsq{} with the operands switched}
+         
+         \PY{n}{D} \PY{o}{=} \PY{n}{Device}\PY{p}{(}\PY{p}{)}
+         \PY{n}{E1} \PY{o}{=} \PY{n}{pg}\PY{o}{.}\PY{n}{ellipse}\PY{p}{(}\PY{p}{)}
+         \PY{n}{E2} \PY{o}{=} \PY{n}{pg}\PY{o}{.}\PY{n}{ellipse}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{movex}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{)}
+         \PY{n}{E3} \PY{o}{=} \PY{n}{pg}\PY{o}{.}\PY{n}{ellipse}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{movex}\PY{p}{(}\PY{l+m+mi}{30}\PY{p}{)}
+         \PY{n}{qp}\PY{p}{(}\PY{p}{[}\PY{n}{E1}\PY{p}{,} \PY{n}{E2}\PY{p}{,} \PY{n}{E3}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{D2} \PY{o}{=} \PY{n}{pg}\PY{o}{.}\PY{n}{boolean}\PY{p}{(}\PY{n}{A} \PY{o}{=} \PY{p}{[}\PY{n}{E1}\PY{p}{,} \PY{n}{E3}\PY{p}{]}\PY{p}{,} \PY{n}{B} \PY{o}{=} \PY{n}{E2}\PY{p}{,} \PY{n}{operation} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{A\PYZhy{}B}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{qp}\PY{p}{(}\PY{n}{D2}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_41_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_41_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}43}]:} \PY{c+c1}{\PYZsh{}==============================================================================}
+         \PY{c+c1}{\PYZsh{} Comparing two Devices}
+         \PY{c+c1}{\PYZsh{}==============================================================================}
+         \PY{c+c1}{\PYZsh{} Sometimes you want to be able to test whether two Devices are identical or}
+         \PY{c+c1}{\PYZsh{} not (similar to the \PYZdq{}diff\PYZdq{} of a text file).  You can perform this comparison}
+         \PY{c+c1}{\PYZsh{} by using the pg.xor\PYZus{}diff(A, B) function.  It will perform a layer\PYZhy{}by\PYZhy{}layer  }
+         \PY{c+c1}{\PYZsh{} XOR difference between the Devices A and B, and returns polygons representing }
+         \PY{c+c1}{\PYZsh{} the differences between A and B.}
+         
+         \PY{n}{D} \PY{o}{=} \PY{n}{Device}\PY{p}{(}\PY{p}{)}
+         \PY{n}{E1} \PY{o}{=} \PY{n}{pg}\PY{o}{.}\PY{n}{ellipse}\PY{p}{(}\PY{p}{)}
+         \PY{n}{E2} \PY{o}{=} \PY{n}{pg}\PY{o}{.}\PY{n}{ellipse}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{rotate}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{)}
+         \PY{n}{E3} \PY{o}{=} \PY{n}{pg}\PY{o}{.}\PY{n}{ellipse}\PY{p}{(}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Let\PYZsq{}s compare two slightly different Devices}
+         \PY{n}{X1} \PY{o}{=} \PY{n}{pg}\PY{o}{.}\PY{n}{xor\PYZus{}diff}\PY{p}{(}\PY{n}{A} \PY{o}{=} \PY{n}{E1}\PY{p}{,} \PY{n}{B} \PY{o}{=} \PY{n}{E2}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} When we plot the result, we see only the differences between E1 and E2}
+         \PY{n}{qp}\PY{p}{(}\PY{n}{X1}\PY{p}{)} 
+         
+         \PY{c+c1}{\PYZsh{} Now let\PYZsq{}s compare two identical Devices}
+         \PY{n}{X2} \PY{o}{=} \PY{n}{pg}\PY{o}{.}\PY{n}{xor\PYZus{}diff}\PY{p}{(}\PY{n}{A} \PY{o}{=} \PY{n}{E1}\PY{p}{,} \PY{n}{B} \PY{o}{=} \PY{n}{E3}\PY{p}{)}
+         \PY{n}{qp}\PY{p}{(}\PY{n}{X2}\PY{p}{)} \PY{c+c1}{\PYZsh{} In this case X2 is empty \PYZhy{}\PYZhy{} therefore E1 and E3 are identical!}
+         
+         \PY{c+c1}{\PYZsh{} We can double\PYZhy{}check this by computing the area of each device}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{E1 != E2 because X1 is not blank: it has total polygon area }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{X1}\PY{o}{.}\PY{n}{area}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{E1 == E3 because X2 is blank: it has total polygon area }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{X2}\PY{o}{.}\PY{n}{area}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_42_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_42_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+E1 != E2 because X1 is not blank: it has total polygon area 38.28322200000009
+E1 == E3 because X2 is blank: it has total polygon area 0
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}44}]:} \PY{c+c1}{\PYZsh{}==============================================================================}
+         \PY{c+c1}{\PYZsh{} Creating outlines of shapes}
+         \PY{c+c1}{\PYZsh{}==============================================================================}
+         \PY{c+c1}{\PYZsh{} Sometimes, when writing in a positive\PYZhy{}tone resist, it is useful to produce }
+         \PY{c+c1}{\PYZsh{} an outline of an existing shape. The pg.outline() function allows you to do}
+         \PY{c+c1}{\PYZsh{} exactly that}
+         
+         \PY{n}{D} \PY{o}{=} \PY{n}{pg}\PY{o}{.}\PY{n}{ellipse}\PY{p}{(}\PY{n}{layer} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{D2} \PY{o}{=} \PY{n}{pg}\PY{o}{.}\PY{n}{outline}\PY{p}{(}\PY{n}{D}\PY{p}{,} \PY{n}{distance} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{layer} \PY{o}{=} \PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{qp}\PY{p}{(}\PY{p}{[}\PY{n}{D}\PY{p}{,} \PY{n}{D2}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_43_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}45}]:} \PY{c+c1}{\PYZsh{}==============================================================================}
+         \PY{c+c1}{\PYZsh{} Joining (Unioning) shapes together}
+         \PY{c+c1}{\PYZsh{}==============================================================================}
+         \PY{c+c1}{\PYZsh{} If you have several polygons which form a single compound shape and you want}
+         \PY{c+c1}{\PYZsh{} to join (union) them all together, you can do it with the pg.union() command:}
+         \PY{c+c1}{\PYZsh{} Note: Like all phidl.geometry functions, this will return NEW geometry! In}
+         \PY{c+c1}{\PYZsh{} particular, this function will return a new *flattened* geometry}
+         
+         \PY{n}{D} \PY{o}{=} \PY{n}{Device}\PY{p}{(}\PY{p}{)}
+         \PY{n}{D} \PY{o}{\PYZlt{}\PYZlt{}} \PY{n}{pg}\PY{o}{.}\PY{n}{ellipse}\PY{p}{(}\PY{n}{layer} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{D} \PY{o}{\PYZlt{}\PYZlt{}} \PY{n}{pg}\PY{o}{.}\PY{n}{ellipse}\PY{p}{(}\PY{n}{layer} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{)}\PY{o}{.}\PY{n}{rotate}\PY{p}{(}\PY{l+m+mi}{15}\PY{o}{*}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{D} \PY{o}{\PYZlt{}\PYZlt{}} \PY{n}{pg}\PY{o}{.}\PY{n}{ellipse}\PY{p}{(}\PY{n}{layer} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{)}\PY{o}{.}\PY{n}{rotate}\PY{p}{(}\PY{l+m+mi}{15}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{D} \PY{o}{\PYZlt{}\PYZlt{}} \PY{n}{pg}\PY{o}{.}\PY{n}{ellipse}\PY{p}{(}\PY{n}{layer} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{)}\PY{o}{.}\PY{n}{rotate}\PY{p}{(}\PY{l+m+mi}{15}\PY{o}{*}\PY{l+m+mi}{3}\PY{p}{)}
+         \PY{n}{D} \PY{o}{\PYZlt{}\PYZlt{}} \PY{n}{pg}\PY{o}{.}\PY{n}{ellipse}\PY{p}{(}\PY{n}{layer} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}\PY{o}{.}\PY{n}{rotate}\PY{p}{(}\PY{l+m+mi}{15}\PY{o}{*}\PY{l+m+mi}{4}\PY{p}{)}
+         \PY{n}{D} \PY{o}{\PYZlt{}\PYZlt{}} \PY{n}{pg}\PY{o}{.}\PY{n}{ellipse}\PY{p}{(}\PY{n}{layer} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}\PY{o}{.}\PY{n}{rotate}\PY{p}{(}\PY{l+m+mi}{15}\PY{o}{*}\PY{l+m+mi}{5}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} We have two options to unioning \PYZhy{} take all polygons, regardless of }
+         \PY{c+c1}{\PYZsh{} layer, and join them together (in this case on layer 5) like so:}
+         \PY{n}{D\PYZus{}joined} \PY{o}{=} \PY{n}{pg}\PY{o}{.}\PY{n}{union}\PY{p}{(}\PY{n}{D}\PY{p}{,} \PY{n}{by\PYZus{}layer} \PY{o}{=} \PY{k+kc}{False}\PY{p}{,} \PY{n}{layer} \PY{o}{=} \PY{l+m+mi}{5}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Or we can perform the union operate by\PYZhy{}layer}
+         \PY{n}{D\PYZus{}joined\PYZus{}by\PYZus{}layer} \PY{o}{=} \PY{n}{pg}\PY{o}{.}\PY{n}{union}\PY{p}{(}\PY{n}{D}\PY{p}{,} \PY{n}{by\PYZus{}layer} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+         
+         \PY{n}{dj} \PY{o}{=} \PY{n}{D} \PY{o}{\PYZlt{}\PYZlt{}} \PY{n}{D\PYZus{}joined}
+         \PY{n}{djl} \PY{o}{=} \PY{n}{D} \PY{o}{\PYZlt{}\PYZlt{}} \PY{n}{D\PYZus{}joined\PYZus{}by\PYZus{}layer}
+         \PY{n}{dj}\PY{o}{.}\PY{n}{xmax} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{25}
+         \PY{n}{djl}\PY{o}{.}\PY{n}{xmax} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{50}
+         
+         \PY{n}{qp}\PY{p}{(}\PY{n}{D}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_44_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}46}]:} \PY{c+c1}{\PYZsh{}==============================================================================}
+         \PY{c+c1}{\PYZsh{} Removing geometry}
+         \PY{c+c1}{\PYZsh{}==============================================================================}
+         \PY{c+c1}{\PYZsh{} If you want, you can remove DeviceReferences or Polygons with D.remove()}
+         
+         \PY{c+c1}{\PYZsh{} Let\PYZsq{}s add some geometry to a blank Device D:}
+         \PY{n}{D} \PY{o}{=} \PY{n}{Device}\PY{p}{(}\PY{p}{)}
+         \PY{n}{myell1} \PY{o}{=} \PY{n}{D}\PY{o}{.}\PY{n}{add\PYZus{}ref}\PY{p}{(}\PY{n}{pg}\PY{o}{.}\PY{n}{L}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n}{mytee2} \PY{o}{=} \PY{n}{D}\PY{o}{.}\PY{n}{add\PYZus{}ref}\PY{p}{(}\PY{n}{pg}\PY{o}{.}\PY{n}{tee}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{movex}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{)}\PY{p}{)}
+         \PY{n}{mypoly1} \PY{o}{=} \PY{n}{D}\PY{o}{.}\PY{n}{add\PYZus{}polygon}\PY{p}{(} \PY{p}{[}\PY{p}{(}\PY{l+m+mi}{8}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{,}\PY{l+m+mi}{9}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{,}\PY{l+m+mi}{9}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{]} \PY{p}{)}
+         \PY{n}{mypoly2} \PY{o}{=} \PY{n}{D}\PY{o}{.}\PY{n}{add\PYZus{}polygon}\PY{p}{(} \PY{p}{[}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}\PY{p}{]} \PY{p}{)}\PY{o}{.}\PY{n}{movey}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{p}{)}
+         \PY{n}{qp}\PY{p}{(}\PY{n}{D}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Now we can remove two of the elements we don\PYZsq{}t want anymore}
+         \PY{n}{D}\PY{o}{.}\PY{n}{remove}\PY{p}{(}\PY{n}{mytee2}\PY{p}{)}
+         \PY{n}{D}\PY{o}{.}\PY{n}{remove}\PY{p}{(}\PY{n}{mypoly2}\PY{p}{)}
+         \PY{n}{qp}\PY{p}{(}\PY{n}{D}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_45_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_45_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}47}]:} \PY{c+c1}{\PYZsh{}==============================================================================}
+         \PY{c+c1}{\PYZsh{} Save / export to SVG}
+         \PY{c+c1}{\PYZsh{}==============================================================================}
+         \PY{c+c1}{\PYZsh{} For figure\PYZhy{}quality publications sometimes you want to save your geometry}
+         \PY{c+c1}{\PYZsh{} as a more convenient vector file format like SVG (for Inkscape, Illustrator, }
+         \PY{c+c1}{\PYZsh{} etc). For that purpose you can use the write\PYZus{}svg() command}
+         \PY{k+kn}{from} \PY{n+nn}{phidl}\PY{n+nn}{.}\PY{n+nn}{utilities} \PY{k}{import} \PY{n}{write\PYZus{}svg}
+         
+         \PY{n}{D} \PY{o}{=} \PY{n}{Device}\PY{p}{(}\PY{p}{)}
+         \PY{n}{D} \PY{o}{\PYZlt{}\PYZlt{}} \PY{n}{pg}\PY{o}{.}\PY{n}{snspd\PYZus{}expanded}\PY{p}{(}\PY{n}{layer} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{D} \PY{o}{\PYZlt{}\PYZlt{}} \PY{n}{pg}\PY{o}{.}\PY{n}{snspd\PYZus{}expanded}\PY{p}{(}\PY{n}{layer} \PY{o}{=} \PY{l+m+mi}{2}\PY{p}{)}\PY{o}{.}\PY{n}{rotate}\PY{p}{(}\PY{l+m+mi}{45}\PY{p}{)}
+         \PY{n}{write\PYZus{}svg}\PY{p}{(}\PY{n}{D}\PY{p}{,} \PY{n}{filename} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MyGeometryFigure.svg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}47}]:} 'MyGeometryFigure.svg'
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}48}]:} \PY{c+c1}{\PYZsh{}==============================================================================}
+         \PY{c+c1}{\PYZsh{} Advanced: Using the LRU Cache decorator}
+         \PY{c+c1}{\PYZsh{}==============================================================================}
+         \PY{c+c1}{\PYZsh{} Let\PYZsq{}s assume you have a Device\PYZhy{}making function which takes a long time,}
+         \PY{c+c1}{\PYZsh{} for instance because it requires extensive computations to calculate polygon}
+         \PY{c+c1}{\PYZsh{} points.  PHIDL has a LRU cache decorator you can use, similar to the}
+         \PY{c+c1}{\PYZsh{} built\PYZhy{}in Python functools.lru\PYZus{}cache.  The cache can significantly speed up}
+         \PY{c+c1}{\PYZsh{} }
+         \PY{k+kn}{import} \PY{n+nn}{time}
+         \PY{k+kn}{from} \PY{n+nn}{phidl} \PY{k}{import} \PY{n}{device\PYZus{}lru\PYZus{}cache}
+         
+         \PY{n+nd}{@device\PYZus{}lru\PYZus{}cache}
+         \PY{k}{def} \PY{n+nf}{computationally\PYZus{}intensive\PYZus{}device}\PY{p}{(}\PY{n}{width} \PY{o}{=} \PY{l+m+mi}{10}\PY{p}{,} \PY{n}{height} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+             \PY{n}{D} \PY{o}{=} \PY{n}{Device}\PY{p}{(}\PY{p}{)}
+             \PY{n}{time}\PY{o}{.}\PY{n}{sleep}\PY{p}{(}\PY{l+m+mf}{1.5}\PY{p}{)} \PY{c+c1}{\PYZsh{} Pretend we\PYZsq{}re doing computations for 1.5 seconds here}
+             \PY{n}{D}\PY{o}{.}\PY{n}{add\PYZus{}polygon}\PY{p}{(} \PY{p}{[}\PY{p}{(}\PY{n}{width}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{,}\PY{l+m+mi}{9}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{,}\PY{l+m+mi}{9}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{]} \PY{p}{)}
+             \PY{k}{return} \PY{n}{D}
+         
+         \PY{c+c1}{\PYZsh{} When we first generate the Device, it takes the usual amount of time to}
+         \PY{c+c1}{\PYZsh{} generate.}
+         \PY{n}{time\PYZus{}start} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+         \PY{n}{DC1} \PY{o}{=} \PY{n}{computationally\PYZus{}intensive\PYZus{}device}\PY{p}{(}\PY{n}{width} \PY{o}{=} \PY{l+m+mi}{10}\PY{p}{,} \PY{n}{height} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Function took }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{ seconds to run initially}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{n}{time\PYZus{}start}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} However, if we use the same input arguments, since we already computed the}
+         \PY{c+c1}{\PYZsh{} Device using those arguments the cache can return a copy much quicker}
+         \PY{n}{time\PYZus{}start} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+         \PY{n}{DC2} \PY{o}{=} \PY{n}{computationally\PYZus{}intensive\PYZus{}device}\PY{p}{(}\PY{n}{width} \PY{o}{=} \PY{l+m+mi}{10}\PY{p}{,} \PY{n}{height} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Function took }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{ seconds to run a second time}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{n}{time\PYZus{}start}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Note that if we change the input arguments, we still need to generate}
+         \PY{c+c1}{\PYZsh{} the function again (even if that argument isn\PYZsq{}t used!)}
+         \PY{n}{time\PYZus{}start} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+         \PY{n}{DC2} \PY{o}{=} \PY{n}{computationally\PYZus{}intensive\PYZus{}device}\PY{p}{(}\PY{n}{width} \PY{o}{=} \PY{l+m+mi}{10}\PY{p}{,} \PY{n}{height} \PY{o}{=} \PY{l+m+mf}{2.7}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Function with new arguments took }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{ seconds to run}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{n}{time\PYZus{}start}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Function took 1.5006427764892578 seconds to run initially
+Function took 0.0 seconds to run a second time
+Function with new arguments took 1.5007009506225586 seconds to run
+
+    \end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
