@@ -1,30 +1,32 @@
-from __future__ import division, print_function, absolute_import
-import numpy as np
-import itertools
-from numpy import sqrt, pi, cos, sin, log, exp, sinh
-from scipy.special import iv as besseli
-from scipy.optimize import fmin, fminbound
-from scipy import integrate
-# from scipy.interpolate import interp1d
+# from __future__ import division, print_function, absolute_import
+# import numpy as np
+# import itertools
+# from numpy import sqrt, pi, cos, sin, log, exp, sinh
+# from scipy.special import iv as besseli
+# from scipy.optimize import fmin, fminbound
+# from scipy import integrate
+# # from scipy.interpolate import interp1d
 
-import gdspy
-from phidl.device_layout import Device, Port
-from phidl.device_layout import _parse_layer, DeviceReference
-import phidl.routing as pr
-import copy as python_copy
-from collections import OrderedDict
-import pickle
+# import gdspy
+# from phidl.device_layout import Device, Port
+# from phidl.device_layout import _parse_layer, DeviceReference
+# import phidl.routing as pr
+# import copy as python_copy
+# from collections import OrderedDict
+# import pickle
 
-from skimage import draw, morphology
+# from skimage import draw, morphology
+
+from phidl.geometry import *
 
 # waveguide: 1st para is length, second is width
-def waveguide(width = 10, height = 1):
+def waveguide(width = 1, length = 10):
     WG = Device('waveguide')
-    WG.add_polygon( [(0, 0), (width, 0), (width, height), (0, height)] )
-    WG.add_port(name = 'wgport1', midpoint = [0,height/2], width = height, orientation = 180)
-    WG.add_port(name = 'wgport2', midpoint = [width,height/2], width = height, orientation = 0)
+    WG.add_polygon( [(0, -width/2), (0, width/2), (length, width/2), (length, -width/2)] )
+    WG.add_port(name = 1, midpoint = [0,0], width = width, orientation = 180)
+    WG.add_port(name = 2, midpoint = [length,0], width = width, orientation = 0)
     return WG
-    
+
 # new ring as an alternative of pg.ring
 def new_ring(radius = 10, width = 0.5, angle_resolution = 1, layer = 0):
     D = Device(name = 'new_ring')
@@ -69,18 +71,24 @@ def slot_ring(radius=50,CGS=[1.0,0.1,0.3], angle_resolution = 2.5, layer = 0):
     D << new_ring(radius=iR,width=CGS[2])
     D << new_ring(radius=oR,width=CGS[2])
     return D
-    
 
-def BMRR(dis = 20, gap = 0.0, width = 1.5):
-    # dis: distance of ports
-    # gap is same for two bus 
-    rgR = dis - gap - width 
-    lc = 10*dis
-    
-    D = Device('BMRR')
-    D << racetrack(radius = dis/2, width = width, lc = lc).movey(-1.5*dis)
-    D << racetrack(radius = dis/2, width = width, lc = lc).movey(1.5*dis)
-    D << pg.ring(radius=rgR,width=width).movex(4*dis)
-    D << pg.ring(radius=rgR,width=width).movex(-4*dis)
-    return D
+@device_lru_cache
+def arc_grating(num_periods = 20, period = 0.75, fill_factor = 0.5, angle = 45, length_taper = 5, width = 0.5, layer = 0):
+    #returns a fiber grating
+    G = Device('grating')
 
+    # make the grating teeth
+    cradius = length_taper + period*(1-0.5*fill_factor)
+    for i in range(num_periods):
+        cgrating = G.add_ref(arc(radius=cradius, start_angle=-angle/2, theta=angle, width=period*fill_factor, layer = layer))
+        cradius += period
+
+    # make the taper
+    out_len = width*0.5/np.tan(angle/360*np.pi)
+    A = bbox([(0,-width/2),(out_len,width/2)])
+    B = arc(radius=length_taper/2,start_angle=-angle/2,theta=angle,width=length_taper,layer=layer)
+    G.add_ref(boolean(A, B, operation = 'a+b'))
+    p = G.add_port(name = 1, midpoint = (0,0), width = width, orientation = 180)
+
+    G.flatten()
+    return G
