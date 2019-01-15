@@ -20,9 +20,9 @@
 from phidl.geometry import *
 
 # waveguide: 1st para is length, second is width
-def waveguide(width = 1, length = 10):
+def waveguide(width = 1, length = 10, layer = 0):
     WG = Device('waveguide')
-    WG.add_polygon( [(0, -width/2), (0, width/2), (length, width/2), (length, -width/2)] )
+    WG.add_polygon( [(0, -width/2), (0, width/2), (length, width/2), (length, -width/2)], layer = layer)
     WG.add_port(name = 1, midpoint = [0,0], width = width, orientation = 180)
     WG.add_port(name = 2, midpoint = [length,0], width = width, orientation = 0)
     return WG
@@ -67,9 +67,9 @@ def slot_ring(radius=50,CGS=[1.0,0.1,0.3], angle_resolution = 2.5, layer = 0):
     cR=radius
     iR=radius-CGS[0]*0.5-CGS[1]-CGS[2]*0.5
     oR=radius+CGS[0]*0.5+CGS[1]+CGS[2]*0.5
-    D << new_ring(radius=cR,width=CGS[0])
-    D << new_ring(radius=iR,width=CGS[2])
-    D << new_ring(radius=oR,width=CGS[2])
+    D << new_ring(radius=cR,width=CGS[0], layer=layer)
+    D << new_ring(radius=iR,width=CGS[2], layer=layer)
+    D << new_ring(radius=oR,width=CGS[2], layer=layer)
     return D
 
 @device_lru_cache
