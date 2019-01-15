@@ -17,7 +17,7 @@ cldW = 20
 
 OUT = Device()
 
-WG = waveguide(wgL,wgW)
+WG = waveguide(length=wgL, width=wgW)
 RG = pg.ring(rgR, wgW)
 RT1 = racetrack(rgR, wgW,10)
 RT2 = racetrack(rgR, wgW,15)
