@@ -44,6 +44,14 @@ def new_ring(radius = 10, width = 0.5, angle_resolution = 1, layer = 0):
     D.add_polygon(points = (xpts,ypts), layer = layer)
     return D
 
+def extend(port, length = 20,layer = 0):
+	'''
+	Extend the port with a straight waveguide.
+	'''
+	D = waveguide(port.width, length, layer=layer)
+	D.rotate(port.orientation).move(origin = D.ports[1], destination = port)
+	return D
+
 # racetrack
 def racetrack(radius = 10, width = 0.5, lc = 5, angle_resolution = 2.5, layer = 0):
     D = Device(name = 'racetrack')
