@@ -27,7 +27,7 @@ def waveguide(width = 1, length = 10, layer = 0):
     WG.add_port(name = 2, midpoint = [length,0], width = width, orientation = 0)
     return WG
 
-# new ring as an alternative of pg.ring
+# new ring as an alternative of ring
 def new_ring(radius = 10, width = 0.5, angle_resolution = 1, layer = 0):
     D = Device(name = 'new_ring')
     inner_radius = radius - width/2
@@ -100,3 +100,66 @@ def arc_grating(num_periods = 20, period = 0.75, fill_factor = 0.5, angle = 45, 
 
     G.flatten()
     return G
+
+# from numpy import cos, sin, arctan
+
+r2d = lambda x : x*180/np.pi
+d2r = lambda x : x*np.pi/180
+arg = lambda x, y: np.arctan((y[1]-y[0])/(x[1]-x[0]))
+
+def archimedes(bent = 20, width = 0.5, n = 1, distance = 10, angle_resolution = 1, layer = 4):
+    shift = distance/np.pi
+    D = Device('archimedes')
+    sp_t = np.linspace(0, 360*n, np.ceil(360*n/angle_resolution))*np.pi/180
+
+    rho = 2*bent + sp_t*shift
+    inner_rho = rho-width*.5
+    outer_rho = rho+width*.5
+    inner_sp_x = (inner_rho*cos(sp_t)).tolist()
+    inner_sp_y = (inner_rho*sin(sp_t)).tolist()
+    outer_sp_x = (outer_rho*cos(sp_t)).tolist()
+    outer_sp_y = (outer_rho*sin(sp_t)).tolist()
+    # arc section
+    inner_t = arg(inner_sp_x,inner_sp_y)
+    arc_radius = bent/sin(inner_t)
+    arc_t = np.linspace(1.5*np.pi-inner_t, 1.5*np.pi+inner_t,100)[:-1]
+    inner_arc_x = ( arc_radius*sin(inner_t) + (arc_radius-width*0.5)*cos(arc_t) ).tolist()
+    inner_arc_y = ( arc_radius*cos(inner_t) + (arc_radius-width*0.5)*sin(arc_t) ).tolist()
+    outer_arc_x = ( arc_radius*sin(inner_t) + (arc_radius+width*0.5)*cos(arc_t) ).tolist()
+    outer_arc_y = ( arc_radius*cos(inner_t) + (arc_radius+width*0.5)*sin(arc_t) ).tolist()
+    
+    outer_t = arg(outer_sp_x[::-1], outer_sp_y[::-1]) 
+    ext_radius = (inner_sp_x[-1]+outer_sp_x[-1])*0.5/sin(outer_t)
+    ext_t = np.linspace(outer_t-np.pi*0.5, np.pi*.5,100)[0:]
+    inner_ext_x = ( (ext_radius-width*0.5)*cos(ext_t) ).tolist()
+    inner_ext_y = ( ext_radius*cos(outer_t) + (ext_radius-width*0.5)*sin(ext_t) ).tolist()
+    outer_ext_x = ( (ext_radius+width*0.5)*cos(ext_t) ).tolist()
+    outer_ext_y = ( ext_radius*cos(outer_t) + (ext_radius+width*0.5)*sin(ext_t) ).tolist()
+    
+    xpts = inner_arc_x + inner_sp_x + inner_ext_x + outer_ext_x[::-1] + outer_sp_x[::-1] + outer_arc_x[::-1]
+    ypts = inner_arc_y + inner_sp_y + inner_ext_y + outer_ext_y[::-1] + outer_sp_y[::-1] + outer_arc_y[::-1]
+    D.add_polygon(points = (xpts,ypts), layer = layer)
+    D.add_polygon(points = (xpts,ypts), layer = layer).rotate(180)
+    
+    D.add_port(name = 1, midpoint = [0,D.ymax-width/2], width = width, orientation = 180)
+    D.add_port(name = 2, midpoint = [0,D.ymin+width/2], width = width, orientation = 0)
+    return D
+
+def semi_spiral(bend=20,shift=10,width=1,layer=1, n=4, angle_resolution=1):
+    D = Device('semi_spiral')
+    inn = arc(radius=(2*bend-shift)/4,start_angle=0,theta=180,width=width).rotate(180).movex(-(2*bend-shift)/4)
+    D << copy(inn).rotate(180)
+    D << inn
+    for i in range(n):
+#         radius = bend + i*shift
+        out = arc(radius=bend+shift*i,start_angle=0,theta=180,width=width).movex(shift/2)
+        D << out
+    for i in range(n):
+        out = arc(radius=bend+shift*i,start_angle=180,theta=180,width=width).movex(-shift/2)
+        D << out
+    WG = waveguide(length=bend+shift*n,width=width).rotate(90).movex(-bend-shift*n+shift/2)
+    D << WG
+    D << copy(WG).rotate(180)
+    D.add_port(name = 1, midpoint = [D.xmin+width/2,D.ymax], width = width, orientation = 90)
+    D.add_port(name = 2, midpoint = [-D.xmin-width/2,-D.ymax], width = width, orientation = 270)
+    return D.rotate(90)
