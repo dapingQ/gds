@@ -107,7 +107,7 @@ r2d = lambda x : x*180/np.pi
 d2r = lambda x : x*np.pi/180
 arg = lambda x, y: np.arctan((y[1]-y[0])/(x[1]-x[0]))
 
-def archimedes(bent = 20, width = 0.5, n = 1, distance = 10, angle_resolution = 1, layer = 4):
+def archimedes(bent = 20, width = 0.5, n = 1, distance = 10, angle_resolution = 1, layer = 1):
     shift = distance/np.pi
     D = Device('archimedes')
     sp_t = np.linspace(0, 360*n, np.ceil(360*n/angle_resolution))*np.pi/180
