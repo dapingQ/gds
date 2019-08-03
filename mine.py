@@ -163,3 +163,27 @@ def semi_spiral(bend=20,shift=10,width=1,layer=1, n=4, angle_resolution=1):
     D.add_port(name = 1, midpoint = [D.xmin+width/2,D.ymax], width = width, orientation = 90)
     D.add_port(name = 2, midpoint = [-D.xmin-width/2,-D.ymax], width = width, orientation = 270)
     return D.rotate(90)
+
+def ALLPASS(width_rg=1, width_bus=1, radius=30, gap=0.1):
+    D = Device('MRRBUS')
+    RG = D << ring(radius=radius,width=width_rg) 
+    BUS = D << waveguide(length=2*radius+width_rg,width=width_bus).movex(-radius-width_rg/2)
+    # align ring & bus, rotate
+    BUS.ymax = RG.ymin - gap
+    D.add_port(name = 1, midpoint = [D.xmax,D.ymin+width_bus/2], width = width_bus, orientation = 0)
+    D.add_port(name = 2, midpoint = [D.xmin,D.ymin+width_bus/2], width = width_bus, orientation = 180)
+    return D
+
+def FOURPORT(width_rg=1, width_bus=1, radius=30, gap=0.1):
+    D = Device('MRRBUS')
+    RG = D << ring(radius=radius,width=width_rg) 
+    BUS1 = D << waveguide(length=2*radius+width_rg,width=width_bus).movex(-radius-width_rg/2)
+    BUS2 = D << waveguide(length=2*radius+width_rg,width=width_bus).movex(-radius-width_rg/2)
+    # align ring & bus, rotate
+    BUS1.ymax = RG.ymin - gap
+    BUS2.ymin = RG.ymax + gap    
+    D.add_port(name = 1, midpoint = [D.xmax,D.ymin+width_bus/2], width = width_bus, orientation = 0)
+    D.add_port(name = 2, midpoint = [D.xmin,D.ymin+width_bus/2], width = width_bus, orientation = 180)
+    D.add_port(name = 3, midpoint = [D.xmax,D.ymax-width_bus/2], width = width_bus, orientation = 0)
+    D.add_port(name = 4, midpoint = [D.xmin,D.ymax-width_bus/2], width = width_bus, orientation = 180)
+    return D
