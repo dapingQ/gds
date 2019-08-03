@@ -80,6 +80,7 @@ def slot_ring(radius=50,CGS=[1.0,0.1,0.3], angle_resolution = 2.5, layer = 0):
     D << new_ring(radius=oR,width=CGS[2], layer=layer)
     return D
 
+# arc shape grating coupler
 @device_lru_cache
 def arc_grating(num_periods = 20, period = 0.75, fill_factor = 0.5, angle = 45, length_taper = 5, width = 0.5, layer = 0):
     #returns a fiber grating
@@ -102,11 +103,9 @@ def arc_grating(num_periods = 20, period = 0.75, fill_factor = 0.5, angle = 45, 
     return G
 
 # from numpy import cos, sin, arctan
-
 r2d = lambda x : x*180/np.pi
 d2r = lambda x : x*np.pi/180
 arg = lambda x, y: np.arctan((y[1]-y[0])/(x[1]-x[0]))
-
 def archimedes(bent = 20, width = 0.5, n = 1, distance = 10, angle_resolution = 1, layer = 1):
     shift = distance/np.pi
     D = Device('archimedes')
@@ -145,40 +144,42 @@ def archimedes(bent = 20, width = 0.5, n = 1, distance = 10, angle_resolution = 
     D.add_port(name = 2, midpoint = [0,D.ymin+width/2], width = width, orientation = 0)
     return D
 
-def semi_spiral(bend=20,shift=10,width=1,layer=1, n=4, angle_resolution=1):
-    D = Device('semi_spiral')
-    inn = arc(radius=(2*bend-shift)/4,start_angle=0,theta=180,width=width).rotate(180).movex(-(2*bend-shift)/4)
-    D << copy(inn).rotate(180)
-    D << inn
-    for i in range(n):
-#         radius = bend + i*shift
-        out = arc(radius=bend+shift*i,start_angle=0,theta=180,width=width).movex(shift/2)
-        D << out
-    for i in range(n):
-        out = arc(radius=bend+shift*i,start_angle=180,theta=180,width=width).movex(-shift/2)
-        D << out
-    WG = waveguide(length=bend+shift*n,width=width).rotate(90).movex(-bend-shift*n+shift/2)
-    D << WG
-    D << copy(WG).rotate(180)
-    D.add_port(name = 1, midpoint = [D.xmin+width/2,D.ymax], width = width, orientation = 90)
-    D.add_port(name = 2, midpoint = [-D.xmin-width/2,-D.ymax], width = width, orientation = 270)
-    return D.rotate(90)
+# def semi_spiral(bend=20,shift=10,width=1,layer=1, n=4, angle_resolution=1):
+#     D = Device('semi_spiral')
+#     inn = arc(radius=(2*bend-shift)/4,start_angle=0,theta=180,width=width).rotate(180).movex(-(2*bend-shift)/4)
+#     D << copy(inn).rotate(180)
+#     D << inn
+#     for i in range(n):
+# #         radius = bend + i*shift
+#         out = arc(radius=bend+shift*i,start_angle=0,theta=180,width=width).movex(shift/2)
+#         D << out
+#     for i in range(n):
+#         out = arc(radius=bend+shift*i,start_angle=180,theta=180,width=width).movex(-shift/2)
+#         D << out
+#     WG = waveguide(length=bend+shift*n,width=width).rotate(90).movex(-bend-shift*n+shift/2)
+#     D << WG
+#     D << copy(WG).rotate(180)
+#     D.add_port(name = 1, midpoint = [D.xmin+width/2,D.ymax], width = width, orientation = 90)
+#     D.add_port(name = 2, midpoint = [-D.xmin-width/2,-D.ymax], width = width, orientation = 270)
+#     return D.rotate(90)
 
-def ALLPASS(width_rg=1, width_bus=1, radius=30, gap=0.1):
+# ring resonator and coupling bus, all pass
+def ALLPASS(width_rg=1, width_bus=1, radius=30, gap=0.1, layer=0):
     D = Device('MRRBUS')
-    RG = D << ring(radius=radius,width=width_rg) 
-    BUS = D << waveguide(length=2*radius+width_rg,width=width_bus).movex(-radius-width_rg/2)
+    RG = D << ring(radius=radius,width=width_rg, layer=layer) 
+    BUS = D << waveguide(length=2*radius+width_rg,width=width_bus, layer=layer).movex(-radius-width_rg/2)
     # align ring & bus, rotate
     BUS.ymax = RG.ymin - gap
     D.add_port(name = 1, midpoint = [D.xmax,D.ymin+width_bus/2], width = width_bus, orientation = 0)
     D.add_port(name = 2, midpoint = [D.xmin,D.ymin+width_bus/2], width = width_bus, orientation = 180)
     return D
 
-def FOURPORT(width_rg=1, width_bus=1, radius=30, gap=0.1):
+# ring resonator and coupling bus, four part
+def FOURPORT(width_rg=1, width_bus=1, radius=30, gap=0.1, layer=0):
     D = Device('MRRBUS')
-    RG = D << ring(radius=radius,width=width_rg) 
-    BUS1 = D << waveguide(length=2*radius+width_rg,width=width_bus).movex(-radius-width_rg/2)
-    BUS2 = D << waveguide(length=2*radius+width_rg,width=width_bus).movex(-radius-width_rg/2)
+    RG = D << ring(radius=radius,width=width_rg, layer=layer) 
+    BUS1 = D << waveguide(length=2*radius+width_rg,width=width_bus, layer=layer).movex(-radius-width_rg/2)
+    BUS2 = D << waveguide(length=2*radius+width_rg,width=width_bus, layer=layer).movex(-radius-width_rg/2)
     # align ring & bus, rotate
     BUS1.ymax = RG.ymin - gap
     BUS2.ymin = RG.ymax + gap    
