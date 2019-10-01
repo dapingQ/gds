@@ -1,3 +1,6 @@
 .ipynb_checkpoints/
-.vscode
-*.gds
+.vscode/
+__pycache__/
+.idea/
+jupyter.bat
+#*.gds
