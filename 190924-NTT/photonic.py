@@ -94,9 +94,9 @@ def arc_grating(num_periods = 20, period = 0.75, fill_factor = 0.5, angle = 45, 
 
     # make the taper
     out_len = width*0.5/np.tan(angle/360*np.pi)
-    A = bbox([(0,-width/2),(out_len,width/2)])
+    A = bbox([(0,-width/2),(out_len,width/2)], layer=layer)
     B = arc(radius=length_taper/2,start_angle=-angle/2,theta=angle,width=length_taper,layer=layer)
-    G.add_ref(boolean(A, B, operation = 'a+b'))
+    G.add_ref(boolean(A, B, operation = 'a+b', layer = layer))
     p = G.add_port(name = 1, midpoint = (0,0), width = width, orientation = 180)
 
     G.flatten()
