@@ -154,7 +154,7 @@ def archimedes(bent = 20, width = 0.5, n = 1, distance = 10, angle_resolution = 
 # ring resonator and coupling bus, all pass
 def allpass(width_rg=1, width_bus=1, radius=30, gap=0.1, layer=0):
     D = Device('allpass')
-    RG = D << ring(radius=radius,width=width_rg, layer=layer) 
+    RG = D << ring(radius=radius,width=width_rg, layer=layer,angle_resolution = 50/radius) 
     BUS = D << waveguide(length=2*radius+width_rg,width=width_bus, layer=layer).movex(-radius-width_rg/2)
     # align ring & bus, rotate
     BUS.ymax = RG.ymin - gap
@@ -165,7 +165,7 @@ def allpass(width_rg=1, width_bus=1, radius=30, gap=0.1, layer=0):
 # ring resonator and coupling bus, four part
 def fourport(width_rg=1, width_bus=1, radius=30, gap=0.1, layer=0):
     D = Device('fourport')
-    RG = D << ring(radius=radius,width=width_rg, layer=layer) 
+    RG = D << ring(radius=radius,width=width_rg, layer=layer,angle_resolution = 50/radius) 
     BUS1 = D << waveguide(length=2*radius+width_rg,width=width_bus, layer=layer).movex(-radius-width_rg/2)
     BUS2 = D << waveguide(length=2*radius+width_rg,width=width_bus, layer=layer).movex(-radius-width_rg/2)
     # align ring & bus, rotate
