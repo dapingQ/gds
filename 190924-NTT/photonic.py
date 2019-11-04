@@ -98,7 +98,7 @@ def archimedes(bent = 20, width = 0.5, n = 1, distance = 10, angle_resolution = 
     shift = distance/np.pi
     D = Device('archimedes')
     sp_t = np.linspace(0, 360*n, np.ceil(360*n/angle_resolution))*np.pi/180
-
+    
     rho = 2*bent + sp_t*shift
     inner_rho = rho-width*.5
     outer_rho = rho+width*.5
@@ -109,7 +109,7 @@ def archimedes(bent = 20, width = 0.5, n = 1, distance = 10, angle_resolution = 
     # arc section
     inner_t = arg(inner_sp_x,inner_sp_y)
     arc_radius = bent/np.sin(inner_t)
-    arc_t = np.linspace(1.5*np.pi-inner_t, 1.5*np.pi+inner_t,100)[:-1]
+    arc_t = np.linspace(1.5*np.pi-inner_t, 1.5*np.pi+inner_t,200)[:-1]
     inner_arc_x = ( arc_radius*np.sin(inner_t) + (arc_radius-width*0.5)*np.cos(arc_t) ).tolist()
     inner_arc_y = ( arc_radius*np.cos(inner_t) + (arc_radius-width*0.5)*np.sin(arc_t) ).tolist()
     outer_arc_x = ( arc_radius*np.sin(inner_t) + (arc_radius+width*0.5)*np.cos(arc_t) ).tolist()
@@ -117,7 +117,7 @@ def archimedes(bent = 20, width = 0.5, n = 1, distance = 10, angle_resolution = 
     
     outer_t = arg(outer_sp_x[::-1], outer_sp_y[::-1]) 
     ext_radius = (inner_sp_x[-1]+outer_sp_x[-1])*0.5/np.sin(outer_t)
-    ext_t = np.linspace(outer_t-np.pi*0.5, np.pi*.5,100)[0:]
+    ext_t = np.linspace(outer_t-np.pi*0.5, np.pi*.5,200)[0:]
     inner_ext_x = ( (ext_radius-width*0.5)*np.cos(ext_t) ).tolist()
     inner_ext_y = ( ext_radius*np.cos(outer_t) + (ext_radius-width*0.5)*np.sin(ext_t) ).tolist()
     outer_ext_x = ( (ext_radius+width*0.5)*np.cos(ext_t) ).tolist()
