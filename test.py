@@ -1,28 +1,18 @@
-# from __future__ import division, print_function, absolute_import
-# %matplotlib inline
 import numpy as np
 
 from phidl import Device, Layer, LayerSet, make_device
-from phidl import quickplot as qp # Rename "quickplot()" to the easier "qp()"
-import phidl.geometry as pg
-import phidl.routing as pr
-import phidl.utilities as pu
+# from phidl import quickplot as qp # Rename "quickplot()" to the easier "qp()"
+# import phidl.geometry as pg
+# import phidl.routing as pr
+# import phidl.utilities as pu
 
 # import customed geolib
-import mine as mn
+# import photonic as mn
+import photonic as ph
 import matplotlib.pyplot as plt
 
+D = Device('tets')
 
-# create trenches to test etching rate
-D = Device('trench')
+D << ph.archimedes(angle_resolution=.5)
 
-w_l = [0.2,0.3,0.4,0.6,1,2,5,10]
-
-mx = 0
-for i in range(len(w_l)):
-    mx += (w_l[i] + 5)
-#     print(mx)
-    D << mn.waveguide(width=w_l[i],length=15e3, layer=1).movey(mx)
-
-qp(D)
-# plt.show()
+D.flatten().write_gds('view.gds')
